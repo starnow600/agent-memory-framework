@@ -1,0 +1,15 @@
+{
+  "id": "kn_003",
+  "type": "proposition",
+  "proposition": "反转策略中，死亡板块左侧（股价<MA20）抄底胜率仅18-25%，右侧（股价≥MA20）确认后胜率可达65-75%，右侧高β=弹性优势。",
+  "concepts": [
+    "反转策略",
+    "右侧确认",
+    "MA20",
+    "板块胜率",
+    "高β弹性"
+  ],
+  "source_file": "recent_memory/decision/2026-08-10_v60_l3_right_side_fix.md",
+  "source_anchor": "背景 / 业界数据",
+  "confidence": "high"
+}

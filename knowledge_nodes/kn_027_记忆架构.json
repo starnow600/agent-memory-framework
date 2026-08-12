@@ -1,0 +1,14 @@
+{
+  "id": "kn_027",
+  "type": "proposition",
+  "proposition": "记忆系统采用L0即时层/L1近中期层/L2长期层三级分层持久化架构，统一索引v0.5管理54条目9种category。",
+  "concepts": [
+    "记忆架构",
+    "分层存储",
+    "统一索引",
+    "L0/L1/L2"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-01",
+  "confidence": "high"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "kn_034",
+  "type": "proposition",
+  "proposition": "统一记忆索引v0.4健康度7.0/10（vs v0.3 5.0），关系型命中率100%、因果型完整度100%，但事实型命中率仅67%，narrative_links覆盖率仅22%是最大短板。",
+  "concepts": [
+    "统一记忆索引",
+    "检索健康度",
+    "narrative_links",
+    "事实型瓶颈"
+  ],
+  "source_file": "recent_memory/project/统一记忆索引_v0.4_Phase3终评_20260720.md",
+  "source_anchor": "核心结论 / 关键发现",
+  "confidence": "high"
+}

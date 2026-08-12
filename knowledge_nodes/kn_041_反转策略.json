@@ -1,0 +1,15 @@
+{
+  "id": "kn_041",
+  "type": "proposition",
+  "proposition": "反转策略得分呈U型分布：30-40分是甜蜜区（+1.07%/72%胜率），40分以上是假反弹陷阱（-3.08%/49%胜率），信号越强可能=杀跌越猛=左侧加速段。",
+  "concepts": [
+    "反转策略",
+    "U型分布",
+    "甜蜜区间",
+    "假反弹陷阱",
+    "L1反常"
+  ],
+  "source_file": "recent_memory/decision/2026-08-10_v60_l3_sector_fix.md",
+  "source_anchor": "发现链 / U型分布+L1反常",
+  "confidence": "high"
+}

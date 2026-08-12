@@ -1,0 +1,14 @@
+{
+  "id": "kn_018",
+  "type": "prescription",
+  "proposition": "所有Review/评估必须产出持久化文件并加入索引，禁止仅存在于对话上下文——不落盘的评测等于没做。",
+  "concepts": [
+    "评测持久化",
+    "记忆可追溯",
+    "知识复用",
+    "索引更新"
+  ],
+  "source_file": "基础设定/experience/review_persistence_protocol.md",
+  "source_anchor": "核心原则 / 元规则",
+  "confidence": "high"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "kn_037",
+  "type": "prescription",
+  "proposition": "记忆系统应主动引入魔鬼代言人外部挑战机制——主动构造反例验证记忆系统健壮性，而非仅被动应对发现的问题。",
+  "concepts": [
+    "魔鬼代言人",
+    "记忆健壮性",
+    "主动挑战",
+    "质量保证"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-11",
+  "confidence": "medium"
+}

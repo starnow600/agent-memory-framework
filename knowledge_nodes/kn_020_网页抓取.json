@@ -1,0 +1,15 @@
+{
+  "id": "kn_020",
+  "type": "prescription",
+  "proposition": "网页内容获取工具选择有明确优先级：Crawl4AI（Markdown/去噪/结构化最高优先）> scrapling（强反爬降级）> fetch_web（纯静态最轻量）> agent-browser（需交互）。",
+  "concepts": [
+    "网页抓取",
+    "Crawl4AI",
+    "工具优先级",
+    "反爬绕过",
+    "Markdown提取"
+  ],
+  "source_file": "基础设定/experience/crawl4ai_web_scraping.md",
+  "source_anchor": "决策树 / 优先级",
+  "confidence": "high"
+}

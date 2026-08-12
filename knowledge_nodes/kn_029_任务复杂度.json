@@ -1,0 +1,14 @@
+{
+  "id": "kn_029",
+  "type": "proposition",
+  "proposition": "AI任务存在复杂度阈值，超过阈值后产出质量呈非线性下降——这是review机制存在的理论基础。",
+  "concepts": [
+    "任务复杂度",
+    "质量阈值",
+    "Review机制",
+    "非线性下降"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-03",
+  "confidence": "medium"
+}

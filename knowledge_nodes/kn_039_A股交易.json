@@ -1,0 +1,14 @@
+{
+  "id": "kn_039",
+  "type": "prescription",
+  "proposition": "A股交易必须遵守硬约束：建仓整手100股，禁止亏损补仓和T-trading。",
+  "concepts": [
+    "A股交易",
+    "仓位纪律",
+    "补仓禁忌",
+    "T+0禁忌"
+  ],
+  "source_file": "基础设定/TOOLS.md",
+  "source_anchor": "最高频必触发规则 / A股交易硬约束",
+  "confidence": "high"
+}

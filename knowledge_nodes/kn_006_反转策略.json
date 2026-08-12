@@ -1,0 +1,15 @@
+{
+  "id": "kn_006",
+  "type": "proposition",
+  "proposition": "反转L3从\"齐跌加分\"改为\"板块历史胜率系数法\"后，回测胜率从47.7%提升至84.7%，T5收益从-3.64%提升至+2.68%。",
+  "concepts": [
+    "反转策略",
+    "L3修正",
+    "板块胜率系数法",
+    "回测验证",
+    "胜率提升"
+  ],
+  "source_file": "recent_memory/decision/2026-08-10_v60_l3_sector_fix.md",
+  "source_anchor": "回测验证 / 596只反转样本",
+  "confidence": "high"
+}

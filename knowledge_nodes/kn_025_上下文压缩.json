@@ -1,0 +1,14 @@
+{
+  "id": "kn_025",
+  "type": "prescription",
+  "proposition": "上下文压缩前必须过3步Checklist：未来3天是否需此信息做决策？降级后是否可恢复？是否属于rigid硬规则？所有压缩动作必须留审计痕迹。",
+  "concepts": [
+    "上下文压缩",
+    "压缩Checklist",
+    "可恢复性",
+    "审计痕迹"
+  ],
+  "source_file": "基础设定/experience/compression_v1_rules.md",
+  "source_anchor": "压缩前3步Checklist",
+  "confidence": "high"
+}

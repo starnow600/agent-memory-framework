@@ -1,0 +1,14 @@
+{
+  "id": "kn_030",
+  "type": "proposition",
+  "proposition": "P0销项机制遵循24h三阶段闭环（建立→实战→Review识别缺口→规则化），等价销项3/3即达到规则化阈值。",
+  "concepts": [
+    "销项机制",
+    "P0管理",
+    "规则化阈值",
+    "三阶段闭环"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-04",
+  "confidence": "high"
+}

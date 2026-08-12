@@ -1,0 +1,14 @@
+{
+  "id": "kn_028",
+  "type": "proposition",
+  "proposition": "Wiki头部腐化遵循三阶段修复模型：发现腐化→数字版修正→语义版对齐，7/12首次完成完整闭环（D9 Benchmark触发）。",
+  "concepts": [
+    "头部腐化",
+    "Wiki一致性",
+    "三阶段修复",
+    "D9 Benchmark"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-02",
+  "confidence": "high"
+}

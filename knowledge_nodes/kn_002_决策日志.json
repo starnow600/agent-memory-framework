@@ -1,0 +1,14 @@
+{
+  "id": "kn_002",
+  "type": "prescription",
+  "proposition": "决策即记录机制采用三管齐下闭环：MEMORY规则+每日记忆捕获日程的决策检测步骤+TOOLS.md锚点同步。",
+  "concepts": [
+    "决策日志",
+    "闭环机制",
+    "三重防御",
+    "记忆捕获"
+  ],
+  "source_file": "recent_memory/decision/2026-08-10_decision_on_record_mechanism.md",
+  "source_anchor": "决策内容 / 三管齐下",
+  "confidence": "high"
+}

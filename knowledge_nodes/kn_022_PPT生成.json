@@ -1,0 +1,15 @@
+{
+  "id": "kn_022",
+  "type": "prescription",
+  "proposition": "学术PPT混合模式应采用\"全页图做背景+真实素材叠加\"方案——直接合并pptx或操作XML都会丢失元素和图片二进制数据。",
+  "concepts": [
+    "PPT生成",
+    "混合模式",
+    "create-ppt",
+    "python-pptx",
+    "学术PPT"
+  ],
+  "source_file": "基础设定/experience/hybrid_ppt_generation.md",
+  "source_anchor": "正确实现方案 / 5步流程",
+  "confidence": "high"
+}

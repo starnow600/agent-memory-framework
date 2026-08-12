@@ -1,0 +1,15 @@
+{
+  "id": "kn_010",
+  "type": "prescription",
+  "proposition": "探索性项目应独立核算成本，当投入产出比过低时主动终止，不因沉没成本硬推——失败数据点本身有价值。",
+  "concepts": [
+    "探索成本",
+    "资源聚焦",
+    "止损思维",
+    "项目终止",
+    "沉没成本"
+  ],
+  "source_file": "recent_memory/decision/2026-08-05_smevals_termination.md",
+  "source_anchor": "决策依据 / 核心原则",
+  "confidence": "high"
+}

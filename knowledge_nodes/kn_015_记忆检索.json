@@ -1,0 +1,15 @@
+{
+  "id": "kn_015",
+  "type": "prescription",
+  "proposition": "记忆检索应遵循4步优先级流程：索引分析→查询构造→执行搜索+直接读取→答案合成；索引优先于语义搜索，冲突时以索引元数据为准。",
+  "concepts": [
+    "记忆检索",
+    "索引优先",
+    "检索协议",
+    "4步流程",
+    "优先级排序"
+  ],
+  "source_file": "基础设定/experience/memory_retrieval_protocol_v05.md",
+  "source_anchor": "标准4步流程 / 优先级",
+  "confidence": "high"
+}

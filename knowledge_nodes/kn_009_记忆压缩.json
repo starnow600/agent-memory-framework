@@ -1,0 +1,15 @@
+{
+  "id": "kn_009",
+  "type": "prescription",
+  "proposition": "MEMORY.md容量管理应主动而非被动——按优先级压缩（状态覆盖>标题精简>条目删除>正文压缩），遵守3项必查：🔒规则不可删/核心数据保留/压缩可追溯。",
+  "concepts": [
+    "记忆压缩",
+    "容量管理",
+    "优先级策略",
+    "记忆健康度",
+    "主动管理"
+  ],
+  "source_file": "recent_memory/decision/2026-08-06_memory_1b_crisis.md",
+  "source_anchor": "决策内容 / 优先级主动压缩",
+  "confidence": "high"
+}

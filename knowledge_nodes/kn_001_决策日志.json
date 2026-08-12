@@ -1,0 +1,14 @@
+{
+  "id": "kn_001",
+  "type": "prescription",
+  "proposition": "重大决策（建仓清仓止损、架构变更、规则修改、任务启动终止、≥5分钟大任务）必须在24小时内写入decision log，禁止月底批量补录。",
+  "concepts": [
+    "决策日志",
+    "决策即记录",
+    "记忆捕获机制",
+    "规则固化"
+  ],
+  "source_file": "recent_memory/decision/2026-08-10_decision_on_record_mechanism.md",
+  "source_anchor": "决策内容 / MEMORY.md新增🔒规则",
+  "confidence": "high"
+}

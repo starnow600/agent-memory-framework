@@ -1,0 +1,15 @@
+{
+  "id": "kn_026",
+  "type": "prescription",
+  "proposition": "IMA API返回code:200002鉴权失败为平台已知现象，非密钥失效，遇到时立即重试1-2次大概率恢复；PDF内容可用fitz直接提取，不依赖解析服务。",
+  "concepts": [
+    "IMA知识库",
+    "鉴权重试",
+    "PDF提取",
+    "fitz",
+    "微信文章读取"
+  ],
+  "source_file": "基础设定/experience/ima_skill_usage_tips.md",
+  "source_anchor": "鉴权特征与重试策略 / PDF读取流程",
+  "confidence": "medium"
+}

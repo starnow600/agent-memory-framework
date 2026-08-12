@@ -1,0 +1,15 @@
+{
+  "id": "kn_023",
+  "type": "prescription",
+  "proposition": "话题追踪日报必须以日程/子会话verify-run验证后的产物为准，主会话严禁自行补搜、重写事实或放宽标准凑数量。",
+  "concepts": [
+    "话题追踪",
+    "交付规则",
+    "verify-run验收",
+    "内容质量",
+    "严格筛选"
+  ],
+  "source_file": "基础设定/experience/topic_tracking_delivery_rules.md",
+  "source_anchor": "交付规则 / 主会话验收标准",
+  "confidence": "high"
+}

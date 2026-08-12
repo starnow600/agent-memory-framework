@@ -1,0 +1,14 @@
+{
+  "id": "kn_032",
+  "type": "proposition",
+  "proposition": "索引优先检索v0.5（索引→直接读取→语义检索三层召回）回测准确率77.8%，18个用例验证达标。",
+  "concepts": [
+    "记忆检索",
+    "索引优先",
+    "检索准确率",
+    "回测验证"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-12",
+  "confidence": "high"
+}

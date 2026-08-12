@@ -1,0 +1,14 @@
+{
+  "id": "kn_038",
+  "type": "proposition",
+  "proposition": "工具选择存在惯性偏差（P0-019 Type B）——路由决策树会失灵，需定期工具系统审计校准。",
+  "concepts": [
+    "工具审计",
+    "路由偏差",
+    "选择惯性",
+    "P0-019"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-09",
+  "confidence": "high"
+}

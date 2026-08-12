@@ -1,0 +1,14 @@
+{
+  "id": "kn_036",
+  "type": "proposition",
+  "proposition": "传统向量RAG的核心缺陷是\"相似≠相关\"——查询表达意图，答案表达内容，两者语义空间不同；相关性需要推理而非余弦距离匹配。",
+  "concepts": [
+    "向量RAG",
+    "语义匹配局限",
+    "推理检索",
+    "查询-知识空间错位"
+  ],
+  "source_file": "recent_memory/project/PageIndex_学习笔记_20260624.md",
+  "source_anchor": "核心问题 / PageIndex方案核心洞察",
+  "confidence": "high"
+}

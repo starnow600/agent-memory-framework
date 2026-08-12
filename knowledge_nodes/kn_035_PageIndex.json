@@ -1,0 +1,15 @@
+{
+  "id": "kn_035",
+  "type": "proposition",
+  "proposition": "PageIndex用文档目录树替代向量数据库，让LLM像人类翻目录一样推理定位信息，FinanceBench准确率98.7%远超向量RAG的30-50%，但代价是慢（30-120秒/query）和token消耗大。",
+  "concepts": [
+    "PageIndex",
+    "推理型RAG",
+    "向量RAG局限",
+    "文档树检索",
+    "准确率提升"
+  ],
+  "source_file": "recent_memory/project/PageIndex_学习笔记_20260624.md",
+  "source_anchor": "性能数据 / 优势与代价",
+  "confidence": "high"
+}

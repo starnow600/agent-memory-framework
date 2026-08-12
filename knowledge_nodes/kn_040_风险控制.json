@@ -1,0 +1,14 @@
+{
+  "id": "kn_040",
+  "type": "prescription",
+  "proposition": "高风险操作（docx编辑/邮件发送/资金操作/删文件/改核心配置）必须过3步校验，用户明确授权可例外。",
+  "concepts": [
+    "风险控制",
+    "操作校验",
+    "高风险操作",
+    "用户授权"
+  ],
+  "source_file": "基础设定/TOOLS.md",
+  "source_anchor": "最高频必触发规则 / 高风险操作Control Policy",
+  "confidence": "high"
+}

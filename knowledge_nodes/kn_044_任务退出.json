@@ -1,0 +1,14 @@
+{
+  "id": "kn_044",
+  "type": "prescription",
+  "proposition": "所有执行型任务必须满足三类语义退出之一：✅完成/⏸️降级并标注[PARTIAL]/🛑中止回报，禁止静默降级。",
+  "concepts": [
+    "任务退出",
+    "语义退出",
+    "降级标注",
+    "质量保证"
+  ],
+  "source_file": "基础设定/TOOLS.md",
+  "source_anchor": "最高频必触发规则 / 语义退出条件",
+  "confidence": "high"
+}

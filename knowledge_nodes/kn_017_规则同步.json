@@ -1,0 +1,15 @@
+{
+  "id": "kn_017",
+  "type": "prescription",
+  "proposition": "🔒规则修改必须三层同步：TOOLS.md标记系统+SOUL.md兜底强制执行+记忆系统联动（实时同步+凌晨一致性检查+月度审计）。",
+  "concepts": [
+    "规则同步",
+    "三重防御",
+    "一致性检查",
+    "🔒规则",
+    "记忆系统联动"
+  ],
+  "source_file": "基础设定/experience/rule_sync_protocol.md",
+  "source_anchor": "三层防御架构",
+  "confidence": "high"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "kn_012",
+  "type": "proposition",
+  "proposition": "止损触发后侥幸心理延迟执行代价极大——兆易创新止损信号触发后延迟8日清仓，多亏约12000元，总亏损扩大至-29.47%。",
+  "concepts": [
+    "止损纪律",
+    "延迟执行",
+    "侥幸心理",
+    "风控失败",
+    "兆易创新"
+  ],
+  "source_file": "recent_memory/decision/2026-08-03_zhaoyi_clear_position.md",
+  "source_anchor": "决策依据 / 核心教训",
+  "confidence": "high"
+}

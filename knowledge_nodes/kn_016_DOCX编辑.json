@@ -1,0 +1,15 @@
+{
+  "id": "kn_016",
+  "type": "prescription",
+  "proposition": "DOCX编辑应按复杂度分层选择工具：新建→docx skill；无合并单元格→OfficeCLI优先；有合并单元格→OfficeCLI语义→DOM→XML三层；复杂嵌套→OOXML手动改；python-docx仅作最后兜底。",
+  "concepts": [
+    "DOCX编辑",
+    "工具分层",
+    "合并单元格",
+    "OfficeCLI",
+    "OOXML"
+  ],
+  "source_file": "基础设定/experience/docx_editing_rules.md",
+  "source_anchor": "不同场景选择 / 5条分层规则",
+  "confidence": "high"
+}

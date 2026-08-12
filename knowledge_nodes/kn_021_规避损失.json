@@ -1,0 +1,14 @@
+{
+  "id": "kn_021",
+  "type": "proposition",
+  "proposition": "规避损失是时点数（snapshot）不是流量数（flow），公式为Σ(卖出价-当日收盘价)×持股数，每日直接重新计算即可，禁止逐日累加。",
+  "concepts": [
+    "规避损失",
+    "存量vs流量",
+    "指标计算",
+    "风控指标"
+  ],
+  "source_file": "基础设定/experience/avoided_loss_calculation_rule.md",
+  "source_anchor": "正确算法 / 错误模式对比",
+  "confidence": "high"
+}

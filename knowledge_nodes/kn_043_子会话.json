@@ -1,0 +1,14 @@
+{
+  "id": "kn_043",
+  "type": "prescription",
+  "proposition": "调用sessions_spawn前必须过3条自检：显式指定skill名、task包含目标/约束/输入/验收/禁止5字段、验收标准可客观判断。",
+  "concepts": [
+    "子会话",
+    "sessions_spawn",
+    "任务定义",
+    "验收标准"
+  ],
+  "source_file": "基础设定/TOOLS.md",
+  "source_anchor": "最高频必触发规则 / sessions_spawn派发",
+  "confidence": "high"
+}

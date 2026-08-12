@@ -1,0 +1,15 @@
+{
+  "id": "kn_014",
+  "type": "prescription",
+  "proposition": "记忆系统应从原始文本检索升级为知识节点化架构——参照PlugMem分三阶段：知识节点化+路由索引 → 推理压缩层 → Episodic结构化溯源。",
+  "concepts": [
+    "记忆架构",
+    "PlugMem",
+    "知识节点",
+    "推理压缩",
+    "GraphRAG局限"
+  ],
+  "source_file": "recent_memory/decision/2026-08-12_plugmem_memory_architecture.md",
+  "source_anchor": "决策 / 三阶段渐进改造",
+  "confidence": "high"
+}

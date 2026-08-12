@@ -1,0 +1,15 @@
+{
+  "id": "kn_011",
+  "type": "prescription",
+  "proposition": "风控报告交付应采用\"完整内容+文件链接\"模式——内容直接呈现降低阅读摩擦，文件链接作为存档附件方便回溯分享。",
+  "concepts": [
+    "风控报告",
+    "交付方式",
+    "用户体验",
+    "信息触达率",
+    "规则固化"
+  ],
+  "source_file": "recent_memory/decision/2026-08-05_risk_report_delivery_change.md",
+  "source_anchor": "决策内容 / 完整内容+附带文件链接",
+  "confidence": "high"
+}

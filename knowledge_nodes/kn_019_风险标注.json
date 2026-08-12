@@ -1,0 +1,14 @@
+{
+  "id": "kn_019",
+  "type": "prescription",
+  "proposition": "信息输出必须显式标注风险归属：[事实]=已验证数据、[决策]=需主人判断的选项、[推测]=基于有限信息的推断；禁止将不确定性伪装成确定性。",
+  "concepts": [
+    "风险标注",
+    "信息透明度",
+    "事实vs推测",
+    "三级标注体系"
+  ],
+  "source_file": "基础设定/experience/risk_annotation_protocol.md",
+  "source_anchor": "三级标注体系 / 使用规则",
+  "confidence": "high"
+}

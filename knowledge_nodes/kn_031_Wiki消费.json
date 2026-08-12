@@ -1,0 +1,14 @@
+{
+  "id": "kn_031",
+  "type": "proposition",
+  "proposition": "Wiki消费率呈三层递减：L1=85.7%/L2=71%/L3=0%，L3深度消费层存在结构性gap。",
+  "concepts": [
+    "Wiki消费",
+    "知识消费",
+    "三层评估",
+    "消费率递减"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-06",
+  "confidence": "medium"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "kn_004",
+  "type": "prescription",
+  "proposition": "反转模式L3板块惩罚应区分左右侧：左侧全额惩罚，右侧惩罚减弱70%，为死亡板块右侧反转开绿灯。",
+  "concepts": [
+    "反转策略",
+    "L3修正",
+    "右侧确认",
+    "MA20",
+    "板块共振"
+  ],
+  "source_file": "recent_memory/decision/2026-08-10_v60_l3_right_side_fix.md",
+  "source_anchor": "决策 / 右侧判定分支",
+  "confidence": "high"
+}

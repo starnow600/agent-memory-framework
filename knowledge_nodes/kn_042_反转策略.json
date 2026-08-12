@@ -1,0 +1,15 @@
+{
+  "id": "kn_042",
+  "type": "proposition",
+  "proposition": "反转策略中，板块差异（观察池82.7% vs 半导体7.7%）远大于β分层差异（高β-5.76% vs 低β+2.79%），板块因素是反转胜率的首要决定因素。",
+  "concepts": [
+    "反转策略",
+    "板块效应",
+    "β分层",
+    "行业中性化",
+    "胜率决定因素"
+  ],
+  "source_file": "recent_memory/decision/2026-08-10_v60_l3_sector_fix.md",
+  "source_anchor": "发现链 / β分层+板块断层",
+  "confidence": "high"
+}

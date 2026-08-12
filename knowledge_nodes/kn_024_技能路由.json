@@ -1,0 +1,14 @@
+{
+  "id": "kn_024",
+  "type": "proposition",
+  "proposition": "复杂任务（>3步/工具选择歧义/数据采集分析生成）开始前必须运行路由脚本做技能选择决策，简单任务（纯对话/单步操作）可跳过但需记skip日志。",
+  "concepts": [
+    "技能路由",
+    "任务复杂度",
+    "决策脚本",
+    "工具选择"
+  ],
+  "source_file": "基础设定/experience/skill_scenario_map.json",
+  "source_anchor": "L3_constraints / route_log自动写入规则",
+  "confidence": "high"
+}

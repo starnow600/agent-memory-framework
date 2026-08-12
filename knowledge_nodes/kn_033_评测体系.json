@@ -1,0 +1,14 @@
+{
+  "id": "kn_033",
+  "type": "proposition",
+  "proposition": "评测体系经历三级跃迁：持久化（落盘文件）→ Wiki化（编译入知识图谱）→ 基准化（D9 Benchmark为标志）。",
+  "concepts": [
+    "评测体系",
+    "知识蒸馏",
+    "Wiki编译",
+    "基准化"
+  ],
+  "source_file": "llm-wiki/wiki/concepts/memory-system.md",
+  "source_anchor": "Key Claims / KC-早期-10",
+  "confidence": "high"
+}

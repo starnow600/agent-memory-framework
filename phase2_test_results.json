@@ -1,0 +1,325 @@
+{
+  "summary": {
+    "total_queries": 15,
+    "avg_input_tokens": 132.5,
+    "avg_output_tokens": 44.9,
+    "total_input_tokens": 1987,
+    "total_output_tokens": 673,
+    "overall_compression_ratio": 0.339,
+    "avg_compression_ratio": 0.34,
+    "avg_quality_score": 3.14,
+    "compression_pass_count": 13,
+    "compression_pass_rate": 0.867,
+    "quality_pass_count": 7,
+    "quality_pass_rate": 0.467,
+    "by_domain": {
+      "量化投资": {
+        "count": 9,
+        "avg_ratio": 0.33222222222222225,
+        "avg_quality": 2.7333333333333334
+      },
+      "记忆系统": {
+        "count": 4,
+        "avg_ratio": 0.35175,
+        "avg_quality": 3.425
+      },
+      "风控/交付": {
+        "count": 1,
+        "avg_ratio": 0.377,
+        "avg_quality": 4.1
+      },
+      "系统治理": {
+        "count": 1,
+        "avg_ratio": 0.328,
+        "avg_quality": 4.7
+      }
+    }
+  },
+  "details": [
+    {
+      "id": 1,
+      "query": "长川科技的止损位是多少",
+      "domain": "量化投资",
+      "query_type": "what",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 132,
+      "output_tokens": 42,
+      "compression_ratio": 0.318,
+      "saving_pct": 0.682,
+      "quality_score": 2.1,
+      "quality_reason": "只有止损纪律原则，无具体止损位数值；3条guidance充足",
+      "guidances": [
+        "探索性项目应独立核算成本[kn_010]",
+        "止损触发后侥幸心理延迟执行代价极大[kn_012]",
+        "止损正确与卖飞风险是两回事[kn_013]"
+      ]
+    },
+    {
+      "id": 2,
+      "query": "v6.0反转模式L3修正的逻辑是什么",
+      "domain": "量化投资",
+      "query_type": "why",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 118,
+      "output_tokens": 48,
+      "compression_ratio": 0.407,
+      "saving_pct": 0.593,
+      "quality_score": 4.8,
+      "quality_reason": "精准命中3个反转策略核心节点，直接回答L3修正逻辑；3条guidance充足",
+      "guidances": [
+        "反转模式L3板块惩罚应区分左右侧[kn_004]",
+        "反转模式下，板块齐跌≠加分信号[kn_005]",
+        "反转L3从\"齐跌加分\"改为\"板块历史胜率系数法\"后[kn_006]"
+      ]
+    },
+    {
+      "id": 3,
+      "query": "决策即记录机制是怎么落地的",
+      "domain": "记忆系统",
+      "query_type": "howto",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 143,
+      "output_tokens": 50,
+      "compression_ratio": 0.35,
+      "saving_pct": 0.65,
+      "quality_score": 4.2,
+      "quality_reason": "命中决策即记录核心节点，第3条技能路由关联弱；3条guidance充足",
+      "guidances": [
+        "重大决策必须在24小时内写入decisionlog[kn_001]",
+        "决策即记录机制采用三管齐下闭环[kn_002]",
+        "复杂任务开始前必须运行路由脚本做技能选择决策[kn_024]"
+      ]
+    },
+    {
+      "id": 4,
+      "query": "Hybrid止损规则怎么算",
+      "domain": "量化投资",
+      "query_type": "howto",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 137,
+      "output_tokens": 44,
+      "compression_ratio": 0.321,
+      "saving_pct": 0.679,
+      "quality_score": 2.6,
+      "quality_reason": "只有规则同步等通用节点，无Hybrid具体算法；1条截断感；3条guidance充足",
+      "guidances": [
+        "🔒规则修改必须三层同步[kn_017]",
+        "话题追踪日报必须以日程/子会话verify-run验证后的产[kn_023]",
+        "重大决策必须在24小时内写入decisionlog[kn_001]"
+      ]
+    },
+    {
+      "id": 5,
+      "query": "蓝色光标最近的评分怎么样",
+      "domain": "量化投资",
+      "query_type": "what",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 139,
+      "output_tokens": 44,
+      "compression_ratio": 0.317,
+      "saving_pct": 0.683,
+      "quality_score": 1.6,
+      "quality_reason": "知识节点中无蓝色光标实体和评分数据；3条guidance充足",
+      "guidances": [
+        "机构调仓是信号不是命令[sem_kn_007]",
+        "DOCX编辑应按复杂度分层选择工具[sem_kn_016]",
+        "所有Review/评估必须产出持久化文件并加入索引[sem_kn_018]"
+      ]
+    },
+    {
+      "id": 6,
+      "query": "Caveman压缩验证的结果是什么",
+      "domain": "记忆系统",
+      "query_type": "what",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 139,
+      "output_tokens": 52,
+      "compression_ratio": 0.374,
+      "saving_pct": 0.626,
+      "quality_score": 2.6,
+      "quality_reason": "命中记忆压缩、架构改造等相关节点，但无Caveman验证结果；1条截断感；3条guidance充足",
+      "guidances": [
+        "记忆系统应从原始文本检索升级为知识节点化架构[kn_014]",
+        "上下文压缩前必须过3步Checklist[kn_025]",
+        "反转策略中，死亡板块左侧（股价<MA20）抄底胜率仅18-2[kn_003]"
+      ]
+    },
+    {
+      "id": 7,
+      "query": "兆易创新为什么清仓",
+      "domain": "量化投资",
+      "query_type": "why",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 135,
+      "output_tokens": 43,
+      "compression_ratio": 0.319,
+      "saving_pct": 0.681,
+      "quality_score": 3.6,
+      "quality_reason": "命中止损延迟教训节点，能解释清仓原因但不完整；3条guidance充足",
+      "guidances": [
+        "止损触发后侥幸心理延迟执行代价极大[kn_012]",
+        "规避损失是时点数不是流量数[sem_kn_021]",
+        "重大决策必须在24小时内写入decisionlog[sem_kn_001]"
+      ]
+    },
+    {
+      "id": 8,
+      "query": "记忆检索的流程是怎样的",
+      "domain": "记忆系统",
+      "query_type": "howto",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 142,
+      "output_tokens": 38,
+      "compression_ratio": 0.268,
+      "saving_pct": 0.732,
+      "quality_score": 4.8,
+      "quality_reason": "命中4步流程+索引优先核心节点，直接回答问题；3条guidance充足",
+      "guidances": [
+        "记忆检索应遵循4步优先级流程[kn_015]",
+        "MEMORY.md容量管理应主动而非被动[kn_009]",
+        "索引优先检索v0.5回测准确率77.8%[kn_032]"
+      ]
+    },
+    {
+      "id": 9,
+      "query": "regime切换的确认规则是什么",
+      "domain": "量化投资",
+      "query_type": "howto",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 132,
+      "output_tokens": 36,
+      "compression_ratio": 0.273,
+      "saving_pct": 0.727,
+      "quality_score": 4.2,
+      "quality_reason": "命中3日确认制核心节点，后2条关联度稍低；3条guidance充足",
+      "guidances": [
+        "BEAR市场MA20首次突破假突破率约50%[kn_008]",
+        "🔒规则修改必须三层同步[kn_017]",
+        "重大决策必须在24小时内写入decisionlog[kn_001]"
+      ]
+    },
+    {
+      "id": 10,
+      "query": "量化引擎P0缺陷有哪些",
+      "domain": "量化投资",
+      "query_type": "what",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 129,
+      "output_tokens": 46,
+      "compression_ratio": 0.357,
+      "saving_pct": 0.643,
+      "quality_score": 1.6,
+      "quality_reason": "只有机构调仓等弱相关节点，无量化引擎P0缺陷；3条guidance充足",
+      "guidances": [
+        "机构调仓是信号不是命令[kn_007]",
+        "P0销项机制遵循24h三阶段闭环[sem_kn_030]",
+        "记忆系统应从原始文本检索升级为知识节点化架构[sem_kn_014]"
+      ]
+    },
+    {
+      "id": 11,
+      "query": "止损逻辑为什么要区分基本面和情绪",
+      "domain": "量化投资",
+      "query_type": "why",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 132,
+      "output_tokens": 42,
+      "compression_ratio": 0.318,
+      "saving_pct": 0.682,
+      "quality_score": 2.6,
+      "quality_reason": "只有止损纪律通用原则，无基本面vs情绪区分节点；3条guidance充足",
+      "guidances": [
+        "探索性项目应独立核算成本[kn_010]",
+        "止损触发后侥幸心理延迟执行代价极大[kn_012]",
+        "止损正确与卖飞风险是两回事[kn_013]"
+      ]
+    },
+    {
+      "id": 12,
+      "query": "知识图谱现在的规模是多少",
+      "domain": "记忆系统",
+      "query_type": "what",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 123,
+      "output_tokens": 51,
+      "compression_ratio": 0.415,
+      "saving_pct": 0.585,
+      "quality_score": 2.1,
+      "quality_reason": "命中记忆架构相关节点，但不是知识图谱规模；3条guidance充足",
+      "guidances": [
+        "记忆系统应从原始文本检索升级为知识节点化架构[kn_014]",
+        "所有Review/评估必须产出持久化文件并加入索引[kn_018]",
+        "评测体系经历三级跃迁[kn_033]"
+      ]
+    },
+    {
+      "id": 13,
+      "query": "风控报告交付方式有什么要求",
+      "domain": "风控/交付",
+      "query_type": "what",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 130,
+      "output_tokens": 49,
+      "compression_ratio": 0.377,
+      "saving_pct": 0.623,
+      "quality_score": 4.1,
+      "quality_reason": "命中交付方式核心节点，后2条关联度一般；3条guidance充足",
+      "guidances": [
+        "风控报告交付应采用\"完整内容+文件链接\"模式[kn_011]",
+        "BEAR市场MA20首次突破假突破率约50%[kn_008]",
+        "止损触发后侥幸心理延迟执行代价极大[kn_012]"
+      ]
+    },
+    {
+      "id": 14,
+      "query": "v6.0前瞻测试的开仓条件是什么",
+      "domain": "量化投资",
+      "query_type": "what",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 125,
+      "output_tokens": 45,
+      "compression_ratio": 0.36,
+      "saving_pct": 0.64,
+      "quality_score": 1.5,
+      "quality_reason": "无前瞻测试和开仓条件节点；1条截断感；3条guidance充足",
+      "guidances": [
+        "统一记忆索引v0.4健康度7.0/10[sem_kn_034]",
+        "反转策略中，板块差异（观察池82.7% vs 半导体7.7%[sem_kn_042]",
+        "所有Review/评估必须产出持久化文件并加入索引[sem_kn_018]"
+      ]
+    },
+    {
+      "id": 15,
+      "query": "高风险操作校验规则是什么",
+      "domain": "系统治理",
+      "query_type": "howto",
+      "retrieval_count": 3,
+      "guidance_count": 3,
+      "input_tokens": 131,
+      "output_tokens": 43,
+      "compression_ratio": 0.328,
+      "saving_pct": 0.672,
+      "quality_score": 4.7,
+      "quality_reason": "命中高风险操作核心节点，3步校验规则明确；3条guidance充足",
+      "guidances": [
+        "高风险操作必须过3步校验，用户明确授权可例外。[kn_040]",
+        "🔒规则修改必须三层同步[kn_017]",
+        "重大决策必须在24小时内写入decisionlog[kn_001]"
+      ]
+    }
+  ]
+}

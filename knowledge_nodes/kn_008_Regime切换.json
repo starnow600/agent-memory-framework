@@ -1,0 +1,15 @@
+{
+  "id": "kn_008",
+  "type": "prescription",
+  "proposition": "BEAR市场MA20首次突破假突破率约50%，Regime切换必须执行3日确认制：Day1信号不动/Day2观察强度/Day3确认后操作。",
+  "concepts": [
+    "Regime切换",
+    "3日确认制",
+    "MA20",
+    "假突破过滤",
+    "风控规则"
+  ],
+  "source_file": "recent_memory/decision/2026-08-07_regime_switch_no_action.md",
+  "source_anchor": "决策内容 / 3日确认制",
+  "confidence": "high"
+}

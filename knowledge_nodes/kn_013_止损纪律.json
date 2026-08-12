@@ -1,0 +1,14 @@
+{
+  "id": "kn_013",
+  "type": "prescription",
+  "proposition": "止损正确与卖飞风险是两回事——止损是纪律，卖飞是概率事件；触发止损必须无条件执行，不可因怕卖飞而不止损。",
+  "concepts": [
+    "止损纪律",
+    "概率思维",
+    "风控原则",
+    "交易纪律"
+  ],
+  "source_file": "recent_memory/decision/2026-08-03_zhaoyi_clear_position.md",
+  "source_anchor": "自主决策记录 / 区分止损正确与卖飞风险",
+  "confidence": "high"
+}
