@@ -1,0 +1,68 @@
+# 敏感信息
+SECRET.md
+*.secret
+*.key
+*.token
+*.env
+USER.md
+CONTACT.md
+EMAIL_RULES.md
+
+# 运行时数据（产物，非源码/核心资产）
+akshare-data/
+llm-wiki/
+探索报告/
+实战投资/
+月度自检报告/
+风险控制报告/
+risk-control-reports/
+codeact/scripts/
+
+# 记忆体系中的纯数据/评估产物
+memory-arch/eval/
+memory-arch/knowledge_nodes/
+memory-arch/__pycache__/
+memory-arch/reports/
+memory-arch/*.py
+memory-arch/*.json
+memory-arch/*.bak
+
+# 图谱数据产物
+graphify-out/incremental_update_*.py
+graphify-out/patch_*.py
+graphify-out/generate_report_*.py
+graphify-out/CHANGELOG*.md
+graphify-out/changelog.json
+
+# 第三方 Agent 配置
+.adal/
+.agents/
+.augment/
+.bob/
+.claude/
+.codebuddy/
+.commandcode/
+.continue/
+.cortex/
+.crush/
+.factory/
+.feishu_cli/
+.goose/
+.iflow/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 系统
+.DS_Store
+*.tmp
+*.lock

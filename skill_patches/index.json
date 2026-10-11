@@ -1,0 +1,1003 @@
+{
+  "version": "2.0",
+  "created": "2026-06-22",
+  "updated": "2026-10-11",
+  "description": "三层Skill补丁库（SkillX架构），Planning/Functional从成功来，Atomic从失败来，双向蒸馏。2026-10-11第16次蒸馏（v0.4叙事增强第6次）：架构升级先全域盘点 + Adapter懒初始化兜底 + 故障恢复三级验证 + 代码拆分依赖checklist + 统一代码放大效应，共5条。",
+  "architecture": {
+    "source": "SkillX (arxiv:2604.04804, zjunlp) + 我们的反向蒸馏经验",
+    "layers": {
+      "planning": "任务级组织结构——子任务顺序、依赖、分支。决定'做什么、先做什么'。来源：成功轨迹",
+      "functional": "可复用工具组合子程序——多步操作模式。决定'怎么做某类子任务'。来源：成功轨迹",
+      "atomic": "单工具/单动作的扩展约束——使用模式、常见失败。决定'用某工具时注意什么'。来源：失败轨迹"
+    },
+    "single_source": "patch本身就是执行层，不再'merged into'其他文件。场景特异规则的单一真相源",
+    "activation": "路由到某技能/进入某任务类型时，通过memory_search+技能指纹索引关联激活相关patch",
+    "refinement": {
+      "merge": "memory_search检测新patch与现有patch语义相似度，>0.9合并",
+      "filter": "质量门控5标准：领域特异性/无过度封装/可复用/无硬编码/非函数式",
+      "expand": "主动探索低频工具和易失败行为，扩展覆盖"
+    }
+  },
+  "planning": [
+    {
+      "id": "plan-ppt-pipeline",
+      "file": "planning/plan-ppt-pipeline.md",
+      "trigger": "收到PPT制作需求",
+      "source": "冠脉CTA PPT成功经验 2026-06-20"
+    },
+    {
+      "id": "plan-quant-entry",
+      "file": "planning/plan-quant-entry.md",
+      "trigger": "扫描结果出高评分标的",
+      "source": "6/18-22多次建仓经验"
+    },
+    {
+      "id": "plan-route-first",
+      "file": "planning/plan-route-first.md",
+      "trigger": "任何工具/方案选择前",
+      "source": "6/21 wjx-cli教训"
+    },
+    {
+      "id": "plan-research-deep",
+      "file": "planning/plan-research-deep.md",
+      "trigger": "需要从多来源收集信息并做分析判断",
+      "source": "6/20 防御股补跌学术搜索"
+    },
+    {
+      "id": "plan-anti-brainfill",
+      "file": "planning/plan-anti-brainfill.md",
+      "trigger": "回答方法论/行业实践/技术标准/最佳实践类问题",
+      "source": "6/17 反拍脑袋机制建设"
+    },
+    {
+      "id": "plan-verify-merge",
+      "file": "planning/plan-verify-merge.md",
+      "trigger": "量化验证/开发日程管理",
+      "source": "6/27 日程合并执行(14→6个)"
+    },
+    {
+      "id": "plan-failure-notify",
+      "file": "planning/plan-failure-notify.md",
+      "trigger": "任何子任务/子session/定时任务执行失败或异常时",
+      "source": "7/3 Step5静默失败教训"
+    },
+    {
+      "id": "plan-meta-challenge",
+      "file": "planning/plan-meta-challenge.md",
+      "trigger": "任何主观判断场景：Review、叙事、量化分析报告、策略评估、自身能力评估",
+      "source": "7/10 Review魔鬼代言人协议 + 7/11 review首次执行"
+    },
+    {
+      "id": "plan-partial-success-danger",
+      "file": "planning/plan-partial-success-danger.md",
+      "trigger": "多步流水线/多阶段任务中，部分步骤成功+部分步骤失败时",
+      "source": "7/18 流水线部分成功 + 严格顺序全量重跑原则"
+    },
+    {
+      "id": "plan-precise-failure-attribution",
+      "file": "planning/plan-precise-failure-attribution.md",
+      "trigger": "系统出现间歇性失败/异常时：流水线步骤失败、API调用500、子session虚报、规则同步miss",
+      "source": "7/22 21:52 主人纠正'先排自身再考虑平台' + 7/23 review#23 N1错判 + 7/24 review二次应用"
+    },
+    {
+      "id": "plan-no-notify-stability-condition",
+      "file": "planning/plan-no-notify-stability-condition.md",
+      "trigger": "每日凌晨Review（02:00-04:00）连续运行+质量稳定期",
+      "source": "7/20-7/26 review#20-#26 连续7次不通知稳定模式 + 7项稳定条件"
+    },
+    {
+      "id": "plan-monitoring-chain-cross-validation",
+      "file": "planning/plan-monitoring-chain-cross-validation.md",
+      "trigger": "多日程覆盖的监控体系需要验证完整性时",
+      "source": "8/2 T7周度快览发现daily_risk_check中断4天+forward_test断档4天",
+      "last_updated": "2026-08-02"
+    },
+    {
+      "id": "plan-steady-state-to-event-driven",
+      "file": "planning/plan-steady-state-to-event-driven.md",
+      "trigger": "周期性监控/审查机制进入零发现稳态（连续≥20次无主动行动）时",
+      "source": "8/3-8/9 Caveman双轨验证 + 20连不通知 + 8/9 review#40切换事件驱动",
+      "last_updated": "2026-08-09"
+    },
+    {
+      "id": "plan-policy-tech-dual-confirmation",
+      "file": "planning/plan-policy-tech-dual-confirmation.md",
+      "trigger": "宏观政策/行业政策出现明确方向性变化，需要转化为投资行动时",
+      "source": "8/16 Q2货政报告+观察池扩容决策（政策+技术双确认框架）",
+      "last_updated": "2026-08-16"
+    },
+    {
+      "id": "plan-data-source-failover",
+      "file": "planning/plan-data-source-failover.md",
+      "trigger": "核心业务依赖的外部API/数据源出现大面积故障，影响关键任务执行时",
+      "source": "8/20腾讯K线API全面故障+iFinD快速切换(69分钟闭环)",
+      "last_updated": "2026-08-23"
+    },
+    {
+      "id": "plan-shadow-test-default",
+      "file": "planning/plan-shadow-test-default.md",
+      "trigger": "任何新能力/新算法/新流程想替代旧系统的场景",
+      "source": "8/30主人点破影子测试模式重复出现 + 风控技能编码4周影子测试 + 数据源切换(8/20) + PlugMem升级(8/23-26) + 索引同步迁移(8/17)",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "id": "plan-shadow-test-accelerated-iteration",
+      "file": "planning/plan-shadow-test-accelerated-iteration.md",
+      "trigger": "影子测试并行运行期间发现新能力有可优化空间或增量价值时",
+      "source": "9/3主人点破影子测试期加速迭代 + 专家版v2.0分级预警影子期内升级 + v2.0.1价格口径修复 + v2.0.3指数白名单修复",
+      "last_updated": "2026-09-06"
+    },
+    {
+      "id": "plan-stock-analysis-route",
+      "file": "planning/plan-stock-analysis-route.md",
+      "trigger": "股票分析相关需求时（单只/批量/指数/板块），需要判断用什么工具/技能/路径",
+      "source": "2026-09-12_iFinD_MCP与学术技能扩容",
+      "last_updated": "2026-09-12"
+    },
+    {
+      "id": "plan-medical-academic-research-route",
+      "file": "planning/plan-medical-academic-research-route.md",
+      "trigger": "医学/学术研究相关需求时，需要判断用PubMed/Semantic Scholar/web_search/deep-research",
+      "source": "2026-09-12_iFinD_MCP与学术技能扩容",
+      "last_updated": "2026-09-12"
+    },
+    {
+      "id": "plan-data-acquisition-route",
+      "file": "planning/plan-data-acquisition-route.md",
+      "trigger": "任何需要从外部获取数据/信息的场景，判断用什么数据源/工具/路径",
+      "source": "2026-09-12_AgentKey_MCP接入",
+      "last_updated": "2026-09-12",
+      "domain": "data-integration",
+      "status": "active",
+      "provenance": "2026-09-12_AgentKey_MCP接入"
+    },
+    {
+      "id": "plan-boundary-calibration-principle",
+      "file": "planning/plan-boundary-calibration-principle.md",
+      "trigger": "用户反馈职责越界/自我定位偏差时，做全体系边界校准而非单点修正",
+      "source": "9/10月度自检职责边界校准 + 26处越界表述修正 + 评分回调11分（80→86）"
+    },
+    {
+      "id": "plan-stabilize-before-expanding",
+      "file": "planning/plan-stabilize-before-expanding.md",
+      "trigger": "当现有系统/流程/机制尚未达到稳定可靠状态，却计划扩展到新场景/新层级时",
+      "source": "9/19 S2加固决策（S3+S4延期→先把S2做扎实） + 影子测试两阶段节奏反向印证",
+      "last_updated": "2026-09-20"
+    },
+    {
+      "id": "plan-consumer-driven-pipeline-health",
+      "file": "planning/plan-consumer-driven-pipeline-health.md",
+      "trigger": "设计/修改多环节流水线时，或修改/降级/移除下游消费环节时——消费端是流水线的动力源",
+      "source": "9/27叙事Review恢复决策（Review降级→上游叙事停更→Wiki空操作→整条链路断裂）"
+    },
+    {
+      "id": "plan-change-impact-and-verify",
+      "file": "planning/plan-change-impact-and-verify.md",
+      "trigger": "任何系统级变更（启停功能、改规则/频率/范围、切换数据源、变更调度方式）",
+      "source": "10/4专家版幽灵运行三层问题叠加 + 10/2双触发路径 + 9/27叙事Review恢复连锁退化 + 9/27 S2三问题"
+    },
+    {
+      "id": "plan-global-inventory-first",
+      "file": "planning/plan-global-inventory-first.md",
+      "trigger": "启动架构类项目（代码重构/架构升级/机制优化）时，尤其是跨模块的架构原则",
+      "source": "10/7渐进式披露D1风控优先惯性 + 用户两次指出需全域覆盖 + 回顾S2加固/变更管理同模式反复出现",
+      "last_updated": "2026-10-11"
+    }
+  ],
+  "functional": [
+    {
+      "id": "func-ppt-data-charts",
+      "file": "functional/func-ppt-data-charts.md",
+      "trigger": "PPT需要数据图表",
+      "source": "冠脉CTA PPT成功方案 2026-06-20"
+    },
+    {
+      "id": "func-quant-stop-loss",
+      "file": "functional/func-quant-stop-loss.md",
+      "trigger": "计算持仓止损价",
+      "source": "ATR止损Step2 2026-06-18"
+    },
+    {
+      "id": "func-quant-position-score",
+      "file": "functional/func-quant-position-score.md",
+      "trigger": "持仓评分计算",
+      "source": "position_manager.py v1.0 2026-06-22"
+    },
+    {
+      "id": "func-regime-adapt",
+      "file": "functional/func-regime-adapt.md",
+      "trigger": "市场Regime切换时",
+      "source": "防御股补跌学术搜索 2026-06-20"
+    },
+    {
+      "id": "func-skill-patch-distill",
+      "file": "functional/func-skill-patch-distill.md",
+      "trigger": "每周六22:00蒸馏日程",
+      "source": "skill_patches体系建设 2026-06-22",
+      "last_updated": "2026-08-02",
+      "version": "v0.7",
+      "changelog": "增加Step 9（监控链完整性检查）"
+    },
+    {
+      "id": "func-quant-price-verify",
+      "file": "functional/func-quant-price-verify.md",
+      "trigger": "盘后获取收盘价/运行风控检查",
+      "source": "6/12收盘价事故"
+    },
+    {
+      "id": "func-shadow-compare",
+      "file": "functional/func-shadow-compare.md",
+      "trigger": "每日17:00风控扫描blow-off股票",
+      "source": "6/27 v5.4前瞻性验证方案落地"
+    },
+    {
+      "id": "func-signal-continuity",
+      "file": "functional/func-signal-continuity.md",
+      "trigger": "量化建仓扫描出现≥55分标的",
+      "source": "6/23 蓝色光标vs工业富联MOM20方向分析"
+    },
+    {
+      "id": "func-narrative-in-distill",
+      "file": "functional/func-narrative-in-distill.md",
+      "trigger": "执行蒸馏/追踪分析/任务规划/工具选择等需要历史因果链的场景",
+      "source": "7/3 Wiki/Skill边界讨论 + 叙事消费洞察 + 7/26事实验证🔒闭环(Step 0.7)",
+      "last_updated": "2026-07-26",
+      "steps": [
+        "识别知识需求",
+        "主动读取Wiki",
+        "与叙事交叉验证",
+        "Wiki不做路由决策",
+        "叙事消费前置验证(Step 0.7:区分事实vs偏好)"
+      ]
+    },
+    {
+      "id": "func-composite-throughput",
+      "file": "functional/func-composite-throughput.md",
+      "trigger": "当本周期内有≥2个新协议/规则/机制同时落地时",
+      "source": "7/10 评测-落地快速化模式 + 7/11 review魔鬼代言人激励偏差挑战"
+    },
+    {
+      "id": "func-topic-tracking-dedup",
+      "file": "functional/func-topic-tracking-dedup.md",
+      "trigger": "每次topic_tracking推送简报前",
+      "source": "7/11蒸馏决策1（主人纠正逻辑方向）：有连接→检查已有答案→避免重复推送"
+    },
+    {
+      "id": "func-deep-interpretation-scenarios",
+      "file": "functional/func-deep-interpretation-scenarios.md",
+      "trigger": "推送追踪话题时判断是否需要深度解读",
+      "source": "7/11蒸馏决策2：积累场景≥8条后提炼判断规则"
+    },
+    {
+      "id": "func-subagent-output-verify",
+      "file": "functional/func-subagent-output-verify.md",
+      "trigger": "子session/子agent报告任务完成时，在采信其结果之前",
+      "source": "7/18 子session产物虚报 + mtime交叉验证发现"
+    },
+    {
+      "id": "func-fact-verification-closure",
+      "file": "functional/func-fact-verification-closure.md",
+      "trigger": "用户陈述事实性信息后需要做投资逻辑分析/数据计算/结论推导时",
+      "source": "7/26 事实验证🔒首例闭环：错算540亿→search_web验证→3处全修正"
+    },
+    {
+      "id": "func-equivalent-closure-with-user-action-exception",
+      "file": "functional/func-equivalent-closure-with-user-action-exception.md",
+      "trigger": "P0销项判断 / 等价销项评估 / 持仓约束持续实践的状态判定",
+      "source": "7/22 P0-014第10次等价销项（用户主动建仓例外）+ 7/25 P0-014第11次"
+    },
+    {
+      "id": "func-hook-coverage-audit",
+      "file": "functional/func-hook-coverage-audit.md",
+      "trigger": "T7月度review执行时",
+      "source": "8/1 T7月度review首次引入hook覆盖率按场景拆分统计+8/1主人质疑报告数据准确性",
+      "last_updated": "2026-08-02"
+    },
+    {
+      "id": "func-data-integrity-before-stats",
+      "file": "functional/func-data-integrity-before-stats.md",
+      "trigger": "对文件系统数据进行统计分析前",
+      "source": "8/1主人质疑T7报告'13天无trace'实际9天+'route_log被清空'实为从未追踪",
+      "last_updated": "2026-08-02"
+    },
+    {
+      "id": "func-memory-active-compression",
+      "file": "functional/func-memory-active-compression.md",
+      "trigger": "MEMORY.md剩余空间<100B且有新增内容需要写入时",
+      "source": "8/5-8/7 MEMORY 99B→1B→459B完整压缩周期 + 7次capture压缩操作记录",
+      "last_updated": "2026-08-09"
+    },
+    {
+      "id": "func-regime-switch-3day-confirm",
+      "file": "functional/func-regime-switch-3day-confirm.md",
+      "trigger": "量化引擎regime首次切换当日",
+      "source": "8/7 Regime BEAR→NEUTRAL首次切换 + BEAR市场MA20假突破率≈50% + 3日确认决策",
+      "last_updated": "2026-08-09"
+    },
+    {
+      "id": "func-code-audit-same-day-fix",
+      "file": "functional/func-code-audit-same-day-fix.md",
+      "trigger": "核心系统代码审计发现P0级安全/资金/数据缺陷时",
+      "source": "8/10 v6.0代码审计(55分/7P0)+当日修复闭环(6P0全修)",
+      "last_updated": "2026-08-16"
+    },
+    {
+      "id": "func-small-fix-same-day",
+      "file": "functional/func-small-fix-same-day.md",
+      "trigger": "发现低风险小工作量问题（≤5分钟可修复）时",
+      "source": "8/23小问题即改🔒规则落地 + Wiki孤立页修复 + Inkwell清理 + MEMORY压缩",
+      "last_updated": "2026-08-23"
+    },
+    {
+      "id": "func-data-driven-dispute-resolution",
+      "file": "functional/func-data-driven-dispute-resolution.md",
+      "trigger": "投资/策略/规则讨论出现体系级分歧且仅凭直觉和个案无法说服对方时",
+      "source": "9/4止损有效性全市场回测(44.4%胜率) + 价值投资vs量化止损讨论从二选一双轨并行升级 + 兆易卖飞幸存者偏差验证",
+      "last_updated": "2026-09-06"
+    },
+    {
+      "id": "func-ifind-stock-full-analysis",
+      "file": "functional/func-ifind-stock-full-analysis.md",
+      "trigger": "需要对单只A股个股进行全面分析（技术面+基本面+事件风险）",
+      "source": "2026-09-12_iFinD_MCP与学术技能扩容",
+      "last_updated": "2026-09-12"
+    },
+    {
+      "id": "func-ifind-market-regime-check",
+      "file": "functional/func-ifind-market-regime-check.md",
+      "trigger": "需要快速判断市场整体状态（Regime判断）/板块热度/市场情绪",
+      "source": "2026-09-12_iFinD_MCP与学术技能扩容",
+      "last_updated": "2026-09-12"
+    },
+    {
+      "id": "func-academic-literature-review",
+      "file": "functional/func-academic-literature-review.md",
+      "trigger": "需要对某个学术/医学主题进行文献综述",
+      "source": "2026-09-12_iFinD_MCP与学术技能扩容",
+      "last_updated": "2026-09-12"
+    },
+    {
+      "id": "func-agentkey-multi-source-research",
+      "file": "functional/func-agentkey-multi-source-research.md",
+      "trigger": "需要多维度数据交叉验证的研究任务（行业研究/竞品分析/热点事件深度调研）",
+      "source": "2026-09-12_AgentKey_MCP接入",
+      "last_updated": "2026-09-12",
+      "domain": "data-integration",
+      "status": "active",
+      "provenance": "2026-09-12_AgentKey_MCP接入"
+    },
+    {
+      "id": "func-agentkey-social-trend-tracking",
+      "file": "functional/func-agentkey-social-trend-tracking.md",
+      "trigger": "追踪某话题在多平台的传播热度/用户反馈/内容趋势（营销监测/舆情追踪/素材搜集）",
+      "source": "2026-09-12_AgentKey_MCP接入",
+      "last_updated": "2026-09-12",
+      "domain": "data-integration",
+      "status": "active",
+      "provenance": "2026-09-12_AgentKey_MCP接入"
+    },
+    {
+      "id": "func-s1-lite-expand-to-scheduled-reports",
+      "file": "functional/func-s1-lite-expand-to-scheduled-reports.md",
+      "trigger": "S1-Lite扩展到日程触发的报告交付场景（发现日程产物全跳过S1时）",
+      "source": "9/11自检发现S1今日0次 + 主人确认补S1-Lite规则 + S1-Lite v2.0三场景扩展"
+    },
+    {
+      "id": "func-optimization-uncovers-bugs",
+      "file": "functional/func-optimization-uncovers-bugs.md",
+      "trigger": "做性能优化/架构重构/代码清理时，将发现隐藏bug纳入预期产出",
+      "source": "9/13风控因子DAG化意外发现v4.5全局状态泄漏 + '事件即规则'原则工程化落地",
+      "last_updated": "2026-09-20"
+    },
+    {
+      "id": "func-rule-embedding-in-execution",
+      "file": "functional/func-rule-embedding-in-execution.md",
+      "trigger": "新增/修改行为规则后，需要确保规则真的被执行时——规则写入文档≠规则被执行",
+      "source": "9/22容量监控上线（上下文工程七件套9/20落地但只在文档里，MEMORY溢出才触发真正落地）"
+    },
+    {
+      "id": "func-memory-anchor-tiered-management",
+      "file": "functional/func-memory-anchor-tiered-management.md",
+      "trigger": "MEMORY容量持续逼近上限、压缩后快速反弹、状态类锚点越来越多",
+      "source": "10/3 MEMORY 97.7%逼近上限 + 10/1压缩后2天反弹 + 锚点性质混杂（核心规则/状态索引混存）"
+    },
+    {
+      "id": "func-lazy-init-fallback",
+      "file": "functional/func-lazy-init-fallback.md",
+      "trigger": "设计/重构适配器层（Adapter）、SDK封装、外部API客户端时",
+      "source": "10/9 iFinD MCP三阶段故障第三阶段（调用方忘init）+ 懒初始化兜底架构改进 + data_layer拆分遗漏全局变量印证",
+      "last_updated": "2026-10-11"
+    },
+    {
+      "id": "func-restore-hierarchy-verify",
+      "file": "functional/func-restore-hierarchy-verify.md",
+      "trigger": "系统/模块故障修复后，需要判断是否恢复并宣布状态时",
+      "source": "10/11用户戳破'5/5全过=fast模式全过' + full模式缺第五章 + 补跑数据质量折扣 + 三阶段故障的'恢复'定义问题",
+      "last_updated": "2026-10-11"
+    }
+  ],
+  "atomic": [
+    {
+      "id": "atom-ppt-format-first",
+      "file": "atomic/atom-ppt-format-first.md",
+      "trigger": "开始制作PPT前",
+      "rule": "格式必须先确认：HTML/PPTX/混用，未确认前不可动手"
+    },
+    {
+      "id": "atom-ppt-chart-no-ai",
+      "file": "atomic/atom-ppt-chart-no-ai.md",
+      "trigger": "PPT中需要数据图表",
+      "rule": "数据图表必须用python-pptx，禁止AI生图"
+    },
+    {
+      "id": "atom-ppt-full-style-check",
+      "file": "atomic/atom-ppt-full-style-check.md",
+      "trigger": "修改PPT样式时",
+      "rule": "样式修改必须全量检查所有图表页"
+    },
+    {
+      "id": "atom-ppt-tool-selection",
+      "file": "atomic/atom-ppt-tool-selection.md",
+      "trigger": "PPT制作需选择工具",
+      "rule": "有数据图表→python-pptx(混用)；纯视觉→create-ppt；已有文章→article-to-ppt"
+    },
+    {
+      "id": "atom-ppt-single-pass",
+      "file": "atomic/atom-ppt-single-pass.md",
+      "trigger": "用python-pptx构建多页PPT",
+      "rule": "单次pass按序创建，禁止分多次save→load→add"
+    },
+    {
+      "id": "atom-route-before-execute",
+      "file": "atomic/atom-route-before-execute.md",
+      "trigger": "选择任何工具/方案前",
+      "rule": "查技能指纹索引→确认有无专用工具或更优路径→禁止凭惯性直接执行"
+    },
+    {
+      "id": "atom-quant-regime-reversal",
+      "file": "atomic/atom-quant-regime-reversal.md",
+      "trigger": "Reversal模式下筛选低MOM防御股",
+      "rule": "不对低MOM防御股建仓；应优化Regime映射而非堆因子"
+    },
+    {
+      "id": "atom-quant-blacklist-daqin",
+      "file": "atomic/atom-quant-blacklist-daqin.md",
+      "trigger": "大秦铁路(601006)出现建仓信号",
+      "rule": "3个月内不主动建仓（连续2次信号失误）"
+    },
+    {
+      "id": "atom-quant-tencent-price",
+      "file": "atomic/atom-quant-tencent-price.md",
+      "trigger": "读取腾讯K线数据取收盘价",
+      "rule": "收盘价取row[2]，禁止取成row[1]开盘价"
+    },
+    {
+      "id": "atom-quant-trading-days",
+      "file": "atomic/atom-quant-trading-days.md",
+      "trigger": "计算持仓天数/衰减因子",
+      "rule": "必须用K线数据计数交易日，不用自然日/单独排除周末"
+    },
+    {
+      "id": "atom-quant-lot-constraint",
+      "file": "atomic/atom-quant-lot-constraint.md",
+      "trigger": "A股持仓仅1手(100股)时",
+      "rule": "1手只有持有/清仓两个选项，减仓至半仓降级为持有观察"
+    },
+    {
+      "id": "atom-quant-no-intraday-scan",
+      "file": "atomic/atom-quant-no-intraday-scan.md",
+      "trigger": "非收盘时间运行v5.0扫描",
+      "rule": "盘中扫描仅参考，正式评分必须15:05之后"
+    },
+    {
+      "id": "atom-ima-no-download",
+      "file": "atomic/atom-ima-no-download.md",
+      "trigger": "需要从ima知识库下载原文",
+      "rule": "API无权下载原文(code:220030)，只能用搜索API获取文献列表"
+    },
+    {
+      "id": "atom-inkwell-api-down",
+      "file": "atomic/atom-inkwell-api-down.md",
+      "trigger": "Inkwell API返回500",
+      "rule": "API持续故障(6/21起)，点赞收藏操作待恢复"
+    },
+    {
+      "id": "atom-no-brainfill-facts",
+      "file": "atomic/atom-no-brainfill-facts.md",
+      "trigger": "需要描述群成员/用户画像/行业判断等未验证信息",
+      "rule": "不脑补未验证的事实"
+    },
+    {
+      "id": "atom-methodology-search-first",
+      "file": "atomic/atom-methodology-search-first.md",
+      "trigger": "涉及方法论判断时",
+      "rule": "必须先搜索再回答，禁止纯推理生成方法论结论"
+    },
+    {
+      "id": "atom-spawn-skill-required",
+      "file": "atomic/atom-spawn-skill-required.md",
+      "trigger": "调用sessions_spawn派发任务",
+      "rule": "必须指定skill名+task含5字段(目标/约束/输入/验收/禁止)"
+    },
+    {
+      "id": "atom-signal-stability-check",
+      "file": "atomic/atom-signal-stability-check.md",
+      "trigger": "量化建仓前",
+      "rule": "必须检查MOM20方向一致性(>0)+评分≥45持续天数≥2(过去3交易日)；短期脉冲不可作为建仓依据"
+    },
+    {
+      "id": "atom-date-verify",
+      "file": "atomic/atom-date-verify.md",
+      "trigger": "涉及日期输出时",
+      "rule": "涉及周几必须明确输出星期几(如'周一6/29')；禁止仅凭数字不验证星期；A股交易日为周一至周五"
+    },
+    {
+      "id": "atom-mom20-direction",
+      "file": "atomic/atom-mom20-direction.md",
+      "trigger": "追涨模式建仓信号评分≥55",
+      "rule": "MOM20必须>0，否则趋势方向未确立；MOM5短期脉冲不可覆盖MOM20方向判断；这是建仓硬门槛非软扣分"
+    },
+    {
+      "id": "atom-why-two-modes",
+      "file": "atomic/atom-why-two-modes.md",
+      "trigger": "编写规则/patch/skill的why字段时",
+      "rule": "高频违反规则→why侧重元认知打断；子session规则→why侧重原理传递；根据执行者类型选择写法"
+    },
+    {
+      "id": "atom-repeat-failure-systemic",
+      "file": "atomic/atom-repeat-failure-systemic.md",
+      "trigger": "同一规则/约束被违反≥3次时",
+      "rule": "3次重复=系统性问题而非偶然；必须引入completion criteria checklist；优先级最高改进项；降级必须标PARTIAL"
+    },
+    {
+      "id": "atom-wiki-header-decompose",
+      "file": "atomic/atom-wiki-header-decompose.md",
+      "trigger": "发现Wiki头部(Summary/Key Claims)与正文最新内容脱节时",
+      "rule": "三阶段渐进修复：文字版→数字版→流程版，不一次性重写"
+    },
+    {
+      "id": "atom-script-vs-user-truth",
+      "file": "atomic/atom-script-vs-user-truth.md",
+      "trigger": "任何脚本/系统推算涉及资金、账户、持仓、cash等关键账户数据时",
+      "rule": "脚本推算值必须明确标注为'推算'；关键账户数据必须与用户确认；偏差超阈值时停止使用脚本值"
+    },
+    {
+      "id": "atom-base-exposure-floor",
+      "file": "atomic/atom-base-exposure-floor.md",
+      "trigger": "设计'修复型'机制时：风控拦截、信号过滤、权重调整、阈值重设、规则优化",
+      "rule": "保留最低基础暴露(5-10%)+调整幅度上限(±10pp)+渐进式修复+负相关≠反向信号"
+    },
+    {
+      "id": "atom-self-beautification-risk",
+      "file": "atomic/atom-self-beautification-risk.md",
+      "trigger": "review、叙事、分析报告中涉及agent自身能力/系统能力提升的判断时",
+      "rule": "强制三分类(系统能力/外部条件/复合效应)+量化数据优先+新模式标记为待验证+失败案例对照"
+    },
+    {
+      "id": "atom-point-in-time-calculation",
+      "file": "atomic/atom-point-in-time-calculation.md",
+      "trigger": "涉及损失/收益/规避金额的计算时",
+      "rule": "必须明确point-in-time计算口径：一次性计算vs累加计算，两种口径不可混用，偏差时全链路修正"
+    },
+    {
+      "id": "atom-schedule-time-range",
+      "file": "atomic/atom-schedule-time-range.md",
+      "trigger": "配置涉及时间窗口的日程/调度任务时",
+      "rule": "时间窗口敏感的任务必须配置time_range参数，未配置=调度时无优先级保护，会被资源竞争挤出"
+    },
+    {
+      "id": "atom-field-migration-check",
+      "file": "atomic/atom-field-migration-check.md",
+      "trigger": "系统迁移/升级后，涉及已有脚本/代码的字段引用时",
+      "rule": "迁移完成后必须检查所有下游脚本的旧字段引用兼容性，dry-run验证捕获AttributeError"
+    },
+    {
+      "id": "atom-v11-miss-detection",
+      "file": "atomic/atom-v11-miss-detection.md",
+      "trigger": "v1.1协议检测规则同步状态 / TOOLS.md变更日志审计 / 规则新增后的48h内",
+      "rule": "v1.1协议miss必须立即识别（变更日志最后日期+当前日期差>7天=漏登）+补登记"
+    },
+    {
+      "id": "atom-high-frequency-reminder-cost",
+      "file": "atomic/atom-high-frequency-reminder-cost.md",
+      "trigger": "设计/调整提醒类机制时：定时通知、闹钟、护栏、日程触发",
+      "rule": "高频提醒=打扰>帮助（1次样本：久坐提醒被关），需评估机制必要性+用户主动关闭即机制失效"
+    },
+    {
+      "id": "atom-coze-version-attribution",
+      "file": "atomic/atom-coze-version-attribution.md",
+      "trigger": "Coze平台相关异常时：API返回异常/调度失败/路由失效/skill加载异常",
+      "rule": "检查Coze版本变更时间线（当前日期前7天+30天+重大发布日如WAIC）"
+    },
+    {
+      "id": "atom-v60-chase-threshold",
+      "file": "atomic/atom-v60-chase-threshold.md",
+      "trigger": "v6.0前瞻数据chase指标持续恶化 / P0-014激活评估 / chase模式权重决策",
+      "rule": "chase T+3<40%🔴=大幅降权75%→30%或归0；累计T+5<48%=暂停chase；保留5-10%基础暴露"
+    },
+    {
+      "id": "atom-schedule-transition-guard",
+      "file": "atomic/atom-schedule-transition-guard.md",
+      "trigger": "日程需要新旧切换/迁移/续期时",
+      "rule": "新旧日程必须有≥1天重叠期，禁止'旧先停新未启'的执行gap"
+    },
+    {
+      "id": "atom-route-log-append-only",
+      "file": "atomic/atom-route-log-append-only.md",
+      "trigger": "任何脚本/子session需要写入route_log.jsonl时",
+      "rule": "route_log.jsonl必须append-only写入，禁止覆盖写入+纳入git追踪"
+    },
+    {
+      "id": "atom-sub-session-trace-consistency",
+      "file": "atomic/atom-sub-session-trace-consistency.md",
+      "trigger": "子session执行任务需要写入trace文件时",
+      "rule": "子session必须同时写入route_log和trace文件，缺一=hook执行不完整"
+    },
+    {
+      "id": "atom-memory-100b-redline",
+      "file": "atomic/atom-memory-100b-redline.md",
+      "trigger": "MEMORY.md剩余空间接近上限时（任何写入操作前）",
+      "rule": "剩余<100B必须触发主动压缩，禁止被动等待溢出；目标维持>500B健康线"
+    },
+    {
+      "id": "atom-stop-loss-vs-missed-rally",
+      "file": "atomic/atom-stop-loss-vs-missed-rally.md",
+      "trigger": "清仓止损后标的价格反弹超越清仓价时",
+      "rule": "止损正确性和卖飞是两个独立维度，不可混淆；止损是纪律判断，卖飞是结果描述"
+    },
+    {
+      "id": "atom-tech-breakout-3day-confirm",
+      "file": "atomic/atom-tech-breakout-3day-confirm.md",
+      "trigger": "标的价格首次突破关键技术位（CE/MA20/前高/平台上沿）时",
+      "rule": "首次突破是信号不是确认，必须等待3个交易日验证有效性"
+    },
+    {
+      "id": "atom-position-limit-code-enforcement",
+      "file": "atomic/atom-position-limit-code-enforcement.md",
+      "trigger": "设计/修改涉及资金管理的代码系统，涉及仓位硬约束规则时"
+    },
+    {
+      "id": "atom-drawdown-peak-based",
+      "file": "atomic/atom-drawdown-peak-based.md",
+      "trigger": "设计/修改回撤计算、熔断机制、最大回撤统计等涉及回撤指标的代码时"
+    },
+    {
+      "id": "atom-pilot-time-extrapolation",
+      "file": "atomic/atom-pilot-time-extrapolation.md",
+      "trigger": "基于小样本试跑耗时预估全量扫描执行时间时",
+      "rule": "小样本试跑耗时不能线性外推到全量，需考虑API成功率衰减/沙箱超时/资源竞争等非线性因子，安全系数2.5~3x"
+    },
+    {
+      "id": "atom-chase-regime-edge-risk",
+      "file": "atomic/atom-chase-regime-edge-risk.md",
+      "trigger": "Regime切换边缘（前3天确认期内）出现追涨模式高评分信号时",
+      "rule": "切换期追涨信号评分打8折+仓位减半+止损上移+时间止损T+3，假突破率约50%风险放大"
+    },
+    {
+      "id": "atom-monitoring-coverage-drift",
+      "file": "atomic/atom-monitoring-coverage-drift.md",
+      "trigger": "系统架构/执行方式发生变化时（技能路由→CodeAct脚本、CLI→API等）",
+      "source": "8/23-8/30连续2周T7数据骤降 + 风控迁CodeAct绕过route_log + 监控名存实亡",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "id": "atom-financial-code-prefix-whitelist",
+      "file": "atomic/atom-financial-code-prefix-whitelist.md",
+      "trigger": "编写/修改涉及金融代码类型判断逻辑时",
+      "source": "9/4指数判断bug：startswith(\"000\")宽松匹配将深市000开头个股误判为指数，导致走指数接口拿错数据"
+    },
+    {
+      "id": "atom-new-module-bug-density-alert",
+      "file": "atomic/atom-new-module-bug-density-alert.md",
+      "trigger": "新模块/新功能上线后短时间内连续发现≥2个逻辑级bug时",
+      "source": "9/3-9/4专家版v2.0 M6模块2天2个逻辑bug(价格口径+指数判断)，review标记密度预警"
+    },
+    {
+      "id": "atom-shared-resource-competition-risk",
+      "file": "atomic/atom-shared-resource-competition-risk.md",
+      "trigger": "新增功能/模块会增加对共享资源(API配额/内存/时长)的消耗时",
+      "source": "9/3深度分析模块耗尽iFinD日token→下午主风控也跑失败，双重故障叠加"
+    },
+    {
+      "id": "atom-ifind-stock-kline",
+      "file": "atomic/atom-ifind-stock-kline.md",
+      "trigger": "查询A股个股历史K线/日频行情/技术指标/技术形态/实时高频行情",
+      "rule": "日期用YYYYMMDD-YYYYMMDD格式；盘中实时用stock_highfreq_quotes；日频用get_stock_performance；与腾讯/akshare互补"
+    },
+    {
+      "id": "atom-ifind-stock-fundamental",
+      "file": "atomic/atom-ifind-stock-fundamental.md",
+      "trigger": "查询A股个股基本资料/财务数据/股本股东/ESG评级等基本面信息",
+      "rule": "财务数据用报告期格式(如2025-06-30)；PE口径需区分TTM和静态；自由流通股本≠流通A股"
+    },
+    {
+      "id": "atom-ifind-stock-summary",
+      "file": "atomic/atom-ifind-stock-summary.md",
+      "trigger": "快速了解股票全貌/按条件筛选A股股票池",
+      "rule": "get_stock_summary上限5只批量；search_stocks条件要量化具体，避免主观描述"
+    },
+    {
+      "id": "atom-ifind-stock-events",
+      "file": "atomic/atom-ifind-stock-events.md",
+      "trigger": "查询上市公司重大事件(IPO/并购/增减持/股权激励等)或定量风险指标(beta/波动率/VaR)",
+      "rule": "事件风险是催化剂，需与基本面/技术面结合判断；beta默认以沪深300为基准"
+    },
+    {
+      "id": "atom-ifind-index-sector",
+      "file": "atomic/atom-ifind-index-sector.md",
+      "trigger": "查询指数行情/板块数据/行业概念板块成分股等",
+      "rule": "指数与个股代码需明确区分(000001可能重号)；板块查询需明确分类体系；实时模式仅交易日日内"
+    },
+    {
+      "id": "atom-ifind-news-notice",
+      "file": "atomic/atom-ifind-news-notice.md",
+      "trigger": "查询A股/基金/港美股公告、财经新闻、热门事件驱动资讯",
+      "rule": "返回片段而非全文；需全文用web_fetch打开链接；query具体度影响精准度；时间范围必设"
+    },
+    {
+      "id": "atom-ifind-fund-analysis",
+      "file": "atomic/atom-ifind-fund-analysis.md",
+      "trigger": "筛选基金/查询基金资料/业绩表现/持仓明细/基金公司信息等",
+      "rule": "基金代码用.OF后缀；持仓数据季报披露有15工作日延迟；ETF实时折溢价用fund_highfreq_quotes"
+    },
+    {
+      "id": "atom-ifind-macro-edb",
+      "file": "atomic/atom-ifind-macro-edb.md",
+      "trigger": "查询宏观经济指标/行业经济数据/大宗商品数据",
+      "rule": "指标名称需精确，同比vs环比要区分；宏观数据有发布滞后；行业指标口径需保持一致"
+    },
+    {
+      "id": "atom-pubmed-medical-search",
+      "file": "atomic/atom-pubmed-medical-search.md",
+      "trigger": "查找医学论文/获取文献摘要/查询临床试验/搜索医学研究综述",
+      "rule": "优先使用MeSH术语；只提供摘要不提供全文；英文文献为主；引用网络不如Semantic Scholar"
+    },
+    {
+      "id": "atom-semantic-scholar-paper-search",
+      "file": "atomic/atom-semantic-scholar-paper-search.md",
+      "trigger": "搜索学术论文/查询论文详情与引用网络/获取作者信息及论文列表",
+      "rule": "引用网络是核心价值；覆盖2亿+全学科论文；同名作者需确认身份；英文文献质量更高"
+    },
+    {
+      "id": "atom-agentkey-web-search",
+      "file": "atomic/atom-agentkey-web-search.md",
+      "trigger": "需要高质量网页搜索/多源冗余搜索/特定搜索API；web_search结果不足时",
+      "rule": "6家搜索引擎(Brave/Exa/Perplexity/Serper/Tavily/Parallel)；按credits计费；能免费搞定的不要浪费credits；调用三步法find→describe→execute",
+      "domain": "data-integration",
+      "status": "active",
+      "provenance": "2026-09-12_AgentKey_MCP接入"
+    },
+    {
+      "id": "atom-agentkey-social-media",
+      "file": "atomic/atom-agentkey-social-media.md",
+      "trigger": "获取抖音/小红书/微博/B站/知乎等社媒平台的帖子/评论/用户数据/热点榜单",
+      "rule": "27个平台1500+工具，国内社媒覆盖极全是核心优势；数据量大成本可能高先预估；与话题追踪v3互补（追踪做定期简报，AgentKey做深度钻取）",
+      "domain": "data-integration",
+      "status": "active",
+      "provenance": "2026-09-12_AgentKey_MCP接入"
+    },
+    {
+      "id": "atom-agentkey-crypto-data",
+      "file": "atomic/atom-agentkey-crypto-data.md",
+      "trigger": "加密货币价格/链上数据/交易所数据/代币分析/社交情绪/NFT",
+      "rule": "15大类180+工具；仅用于了解研究不做投资决策（A股为主业）；数据质量参差不齐需交叉验证",
+      "domain": "data-integration",
+      "status": "active",
+      "provenance": "2026-09-12_AgentKey_MCP接入"
+    },
+    {
+      "id": "atom-agentkey-finance-data",
+      "file": "atomic/atom-agentkey-finance-data.md",
+      "trigger": "iFinD覆盖不足的金融场景：美股/港股/全球市场/另类数据/技术指标补充/交叉验证",
+      "rule": "4家311工具(Alpha Vantage/Finnhub/Tushare/yfinance)；iFinD主力做A股，AgentKey金融库做补充；Tushare数据量大按需使用",
+      "domain": "data-integration",
+      "status": "active",
+      "provenance": "2026-09-12_AgentKey_MCP接入"
+    },
+    {
+      "id": "atom-sdk-exception-bypass",
+      "file": "atomic/atom-sdk-exception-bypass.md",
+      "trigger": "代码迁移到新环境（CodeAct沙箱/新SDK/新API）时，SDK层错误绕过业务层容错",
+      "source": "9/8-9/9每日自检CodeAct沙箱sessions_list缺失 + iFinD v6.1.2启动级故障修复"
+    },
+    {
+      "id": "atom-schedule-config-verify",
+      "file": "atomic/atom-schedule-config-verify.md",
+      "trigger": "修改日程配置（描述/模式/参数）后，必须反向验证是否真的生效",
+      "source": "9/9每日自检修了description但script_path没清 + 删除重建才解决 + description≠执行模式教训"
+    },
+    {
+      "id": "atom-ticket-executor-assumption",
+      "file": "atomic/atom-ticket-executor-assumption.md",
+      "trigger": "设计/使用工单模式日程时，对'谁来执行'做出假设前",
+      "source": "9/19 S2加固发现'纯工单=主agent执行'是错误假设 → CalDAV工单默认子agent跑 → 质量不可控",
+      "last_updated": "2026-09-20"
+    },
+    {
+      "id": "atom-cross-day-date-alignment",
+      "file": "atomic/atom-cross-day-date-alignment.md",
+      "trigger": "跨天运行的任务（夜间执行、次日产出）需要匹配前一天的产物/日期时",
+      "source": "9/19 S2修复发现文件探测日期匹配搞反——记忆捕获D日凌晨产出用D-1名，自检D日晚应匹配D-1",
+      "last_updated": "2026-09-20"
+    },
+    {
+      "id": "atom-explanatory-output-verification",
+      "file": "atomic/atom-explanatory-output-verification.md",
+      "trigger": "需要向用户解释原因/过程/时间线时——解释类输出也是事实输出，必须验证",
+      "source": "9/22编造时间线错误（解释容量监控明晚生效实为当晚运行但路径有bug）"
+    },
+    {
+      "id": "atom-config-expansion-fact-driven",
+      "file": "atomic/atom-config-expansion-fact-driven.md",
+      "trigger": "向配置项/探测规则/扫描列表中新增条目时——配置扩展必须事实驱动，不能假设驱动",
+      "source": "9/22 FS_PROBE_RULES bug（话题追踪凭空添加导致虚假分母→S2完整度120%）"
+    },
+    {
+      "id": "atom-memory-anchor-fact-only",
+      "file": "atomic/atom-memory-anchor-fact-only.md",
+      "trigger": "向MEMORY.md写入状态类锚点时",
+      "source": "10/4专家版幽灵运行——MEMORY写挡板已修复但代码里没有挡板 → 记忆污染"
+    },
+    {
+      "id": "atom-system-change-next-cycle-verify",
+      "file": "atomic/atom-system-change-next-cycle-verify.md",
+      "trigger": "任何涉及系统行为变更的操作（启停任务/改规则/切换模式/更新配置）",
+      "source": "10/2影子测试双触发路径 + 10/4幽灵运行 + 9/9日程配置改description不生效 + 9/27 S2三问题"
+    },
+    {
+      "id": "atom-module-split-dependency-checklist",
+      "file": "atomic/atom-module-split-dependency-checklist.md",
+      "trigger": "将代码从一个文件/模块拆到另一个文件/模块时（模块化重构、渐进式披露、抽取公共库）",
+      "source": "S2探测规则import bug(18天静默失败) + 风控data_layer漏3依赖 + AVOIDED_LOSS_RECORDS第4例漏项 + 4例同一模式=系统性问题",
+      "last_updated": "2026-10-11"
+    },
+    {
+      "id": "atom-unified-code-amplification",
+      "file": "atomic/atom-unified-code-amplification.md",
+      "trigger": "将重复代码合并为单一事实来源(SSOT)时；将多份配置/规则/探测逻辑统一到一个模块时",
+      "source": "S2探测规则统一后import bug两边都坏(18天) + '统一即放大'架构规律 + try/except Exception是bug藏身之所",
+      "last_updated": "2026-10-11"
+    }
+  ],
+  "filter_standards": [
+    "领域特异性：补丁必须包含领域特定的工具/场景/约束",
+    "无过度封装：不是简单wrapper，必须有实质判断逻辑",
+    "可复用：参数抽象而非硬编码具体值",
+    "无硬编码：不含特定日期/金额等不可迁移值",
+    "非函数式：描述行为规则而非return语句"
+  ],
+  "merge_log": [
+    {
+      "date": "2026-06-22",
+      "action": "v1→v2重构",
+      "details": "10条原平铺patch重构为三层(5 Planning + 6 Functional + 17 Atomic)；新增7条Atomic"
+    },
+    {
+      "date": "2026-06-27",
+      "action": "首次双向蒸馏",
+      "details": "蒸馏周期6/22-6/27；新增1 Planning(plan-verify-merge)+2 Functional(func-shadow-compare/func-signal-continuity)+3 Atomic(atom-signal-stability-check/atom-date-verify/atom-mom20-direction)；Merge检测完成(无>0.9)；Filter 6/6通过"
+    },
+    {
+      "date": "2026-07-04",
+      "action": "第二次双向蒸馏(v0.4叙事增强)",
+      "details": "蒸馏周期6/28-7/4；首次启用v0.4叙事增强+Wiki知识支撑+图谱narrative辅助；新增1 Planning(plan-failure-notify)+1 Functional(func-narrative-in-distill)+2 Atomic(atom-why-two-modes/atom-repeat-failure-systemic)；Merge检测完成(无>0.9)；Filter 4/4通过；叙事帮助发现memory_search找不到的深层模式"
+    },
+    {
+      "date": "2026-07-11",
+      "action": "第三次双向蒸馏(叙事增强+追踪策略+决策树更新)",
+      "details": "蒸馏周期7/4-7/11；启用叙事+Wiki+图谱三重知识支撑+9次review元模式识别；新增1 Planning(plan-meta-challenge)+1 Functional(func-composite-throughput)+4 Atomic(atom-wiki-header-decompose/atom-script-vs-user-truth/atom-base-exposure-floor/atom-self-beautification-risk)；Merge检测完成(无>0.9)；Filter 6/6通过；叙事帮助发现：①魔鬼代言人激励偏差(7/11 review首次执行)②Wiki头部腐化三阶段演进(7/10+7/11 review对比)③v5.7/v5.8过度修正的Guardian悖论(7/7+7/8叙事)④agent自我美化倾向(7/11 review激励偏差挑战)；追踪策略改进3条；Skill决策树更新1条(func-skill-patch-distill增加Step 0/0.5/0.6)"
+    },
+    {
+      "date": "2026-07-19",
+      "action": "第四次双向蒸馏(补执行7/18被挤出+叙事深度模式提取)",
+      "details": "蒸馏周期7/11-7/18；扫描15+篇叙事+图谱809节点/1312边+Wiki 12篇文章；新增1 Planning(plan-partial-success-danger)+1 Functional(func-subagent-output-verify)+3 Atomic(atom-point-in-time-calculation/atom-schedule-time-range/atom-field-migration-check)；Merge检测完成(无>0.9)；Filter 5/5通过；叙事帮助发现：①部分成功比全失败更危险(7/18跨天对比)②子session产物虚报模式(7/18 mtime验证)③point-in-time计算口径混用(7/17叙事)④设计-执行断层的销项机制演进链(7/11→7/12→7/15跨叙事)；追踪策略改进2条；Skill决策树更新建议1条"
+    },
+    {
+      "date": "2026-07-26",
+      "action": "第五次双向蒸馏(7/22主人纠正🔒+事实验证🔒首例闭环+稳态不通知模式)",
+      "details": "蒸馏周期7/19-7/26；扫描15+篇叙事（review#20-#26+每日叙事review+7/22-7/26关键事件）+图谱984节点/1629边+Wiki 16篇文章；新增2 Planning(plan-precise-failure-attribution/plan-no-notify-stability-condition)+2 Functional(func-fact-verification-closure/func-equivalent-closure-with-user-action-exception)+4 Atomic(atom-v11-miss-detection/atom-high-frequency-reminder-cost/atom-coze-version-attribution/atom-v60-chase-threshold)；Merge检测完成(无>0.9)；Filter 8/8通过；叙事帮助发现：①7/22 21:52主人纠正'先排自身再考虑平台'元教训→已🔒+Planning层落地为4层归因决策树 ②7/23 review#23 N1错判='mtime视角误判'的精确归因价值 ③7/26事实验证🔒首例闭环=search_web验证→3处全修正的可复用流程 ④P0-014第10-11次等价销项='用户主动'例外条款 ⑤Review连续7次不通知稳态模式+7项条件 ⑥v6.0 chase T+3跌破40%🔴的硬警戒线阈值 ⑦TOOLS.md v1.1协议miss的72h自动检测 ⑧高频提醒成本=用户主动关闭=机制失效信号；追踪策略改进2条；Skill决策树更新建议1条(func-fact-verification-closure纳入func-narrative-in-distill的Step 0.7)"
+    },
+    {
+      "date": "2026-07-26",
+      "action": "Skill决策树更新：func-narrative-in-distill增加Step 0.7",
+      "details": "蒸馏报告中建议func-narrative-in-distill增加Step 0.7（事实验证）：消费叙事时区分用户陈述事实vs用户决策/偏好，对前者自动触发4步验证流程。用户已确认同意。来源：func-fact-verification-closure（7/26事实验证🔒首例闭环）"
+    },
+    {
+      "date": "2026-08-02",
+      "action": "第六次双向蒸馏(v0.4叙事增强+监控断档模式+数据完整性链+T7 hook审计)",
+      "details": "蒸馏周期7/26-8/2；扫描7篇review叙事(27-33)+图谱1054节点/1801边+Wiki全量索引；新增1 Planning(plan-monitoring-chain-cross-validation)+2 Functional(func-hook-coverage-audit/func-data-integrity-before-stats)+3 Atomic(atom-schedule-transition-guard/atom-route-log-append-only/atom-sub-session-trace-consistency)；Merge检测完成(无>0.9)；Filter 6/6通过；叙事帮助发现：①schedule transition gap跨链同时发生模式(8/2 T7) ②T7统计逻辑不可靠→数据完整性先于统计(8/1主人质疑) ③route_log从未git追踪+append-only缺失(8/1验证) ④子session trace写入不一致(7/29-31 route_log有但trace无) ⑤description安全压缩率20-30%非55-70%(8/2 caveman分析) ⑥单日技术信号弱势股次日反转模式(7/30深V→7/31利好出货)；追踪策略改进0条(无新增反馈)；Skill决策树更新建议1条"
+    },
+    {
+      "date": "2026-08-09",
+      "action": "第七次双向蒸馏(稳态事件驱动转换+MEMORY空间管理+3日确认体系)",
+      "details": "蒸馏周期8/2-8/9；扫描7篇daily memory capture+7次caveman review(#34-#40)+索引同步报告+图谱v1.97(1111节点/1935边/834条narrative)+Wiki全量索引；新增1 Planning(plan-steady-state-to-event-driven)+2 Functional(func-memory-active-compression/func-regime-switch-3day-confirm)+3 Atomic(atom-memory-100b-redline/atom-stop-loss-vs-missed-rally/atom-tech-breakout-3day-confirm)；Merge检测完成(无>0.9)；Filter 6/6通过；叙事帮助发现：①20连零发现=机制自身问题 ②MEMORY 1B危机的完整压缩周期模式 ③止损正确vs卖飞双维度分离 ④技术突破3日确认的跨尺度一致性(个股CE+大盘regime) ⑤smevals终止=探索成本独立核算 ⑥caveman双轨验证方法论；追踪策略改进0条；Skill决策树更新建议2条"
+    },
+    {
+      "date": "2026-08-16",
+      "action": "第八次双向蒸馏(叙事增强+追踪策略+决策树更新)",
+      "details": "蒸馏周期8/9-8/16；v0.4叙事增强+Wiki+图谱三重支撑；新增1 Planning(plan-policy-tech-dual-confirmation)+1 Functional(func-code-audit-same-day-fix)+2 Atomic(atom-position-limit-code-enforcement/atom-drawdown-peak-based)；Merge检测完成(无>0.9)；Filter 4/4通过；叙事帮助发现：①政策技术双确认三层融合渐进模式②代码审计P0当日闭环方法论③仓位约束代码化=规则有效性取决于最薄弱执行环节④回撤peak-based=盈利越多保护越强；追踪策略改进0条（无新增反馈数据）；Skill决策树更新1条"
+    },
+    {
+      "date": "2026-08-23",
+      "action": "第九次双向蒸馏(数据源切换框架+小问题即改+试跑外推谬误+Regime切换边缘追涨风险)",
+      "details": "蒸馏周期8/16-8/23；v0.4叙事增强+Wiki+图谱三重支撑；新增1 Planning(plan-data-source-failover)+1 Functional(func-small-fix-same-day)+2 Atomic(atom-pilot-time-extrapolation/atom-chase-regime-edge-risk)；Merge检测完成(无>0.9)；Filter 4/4通过；叙事帮助发现：①数据源故障69分钟切换闭环=四步框架可复用 ②8/23周日4个小问题集中处理=即改模式 ③15只试跑→1587只全量失败=线性外推谬误 ④紫光建仓2日跌停=Regime切换边缘追涨风险不对称 ⑤PlugMem L0 0%→热缓存=架构层闲置资源激活模式；追踪策略改进1条；Skill决策树更新建议2条"
+    },
+    {
+      "date": "2026-08-30",
+      "action": "第十次双向蒸馏(影子测试默认方法论+监控覆盖面漂移+规则生长机制)",
+      "details": "蒸馏周期8/23-8/30；v0.4叙事增强+Wiki+图谱三重支撑；新增1 Planning(plan-shadow-test-default)+1 Atomic(atom-monitoring-coverage-drift)；Merge检测完成(无>0.9)；Filter 2/2通过；叙事帮助发现：①影子测试3次出现但每次从零做计划=记忆是仓库不是提炼厂 ②记忆系统存储导向缺陷=缺元认知模式提炼层 ③监控覆盖面随架构演进自然萎缩=监控锚定路径而非目标 ④规则生长双路径=禁令型(失败→禁令)+策略型(成功→策略)当前69:31 ⑤元认知规则生长初筛=从15篇decision挖8条策略型规则 ⑥CodeAct迁移导致T7失明=架构漂移的监控盲区；追踪策略改进0条(无新追踪反馈)；Skill决策树更新建议3条"
+    },
+    {
+      "date": "2026-09-06",
+      "action": "第十一次双向蒸馏(影子测试加速迭代+数据驱动争议解决+新模块质量预警+共享资源竞争)",
+      "details": "蒸馏周期8/30-9/6；v0.4叙事增强+Wiki+图谱三重支撑+4次caveman review(#62-#65)；新增1 Planning(plan-shadow-test-accelerated-iteration)+1 Functional(func-data-driven-dispute-resolution)+3 Atomic(atom-financial-code-prefix-whitelist/atom-new-module-bug-density-alert/atom-shared-resource-competition-risk)；Merge检测完成(无>0.9)；Filter 5/5通过；叙事帮助发现：①影子测试期内加速迭代=并行期是黄金迭代窗口而非等待期(主人点破+专家版v2.0影子期2次升级验证) ②数据驱动争议解决=体系级分歧不能停留在观点层面，全市场回测提供客观事实基础(止损44.4%胜率回测+双轨制讨论升级) ③金融代码前缀白名单=指数与个股共用000前缀的领域知识，静态review发现不了只有影子对比才发现 ④新模块bug密度预警=2天2个逻辑bug是测试覆盖不足信号，3个为行动阈值(review第64次魔鬼代言人分析) ⑤共享资源竞争=增量功能消耗共享资源影响核心系统，iFinD token耗尽主风控连带失败；追踪策略改进0条(本周无追踪反馈)；Skill决策树更新建议2条"
+    },
+    {
+      "date": "2026-09-07",
+      "action": "Skill决策树更新2条（第11次蒸馏落地）",
+      "details": "用户已确认同意两条更新建议：①plan-shadow-test-default增加「影子测试两阶段节奏」（前2周加速迭代期+后2周收敛稳定期），明确影子期是低成本快速迭代黄金窗口而非等待期；②func-fact-verification-closure增加「数据支撑体系定位」，与func-data-driven-dispute-resolution形成微观+宏观双层数据支撑体系（微观事实验证地基+宏观规律验证上层），两条配合使用。"
+    },
+    {
+      "date": "2026-09-12",
+      "action": "第十二轮补丁扩容（iFinD MCP + 学术技能）",
+      "details": "新增2 Planning(plan-stock-analysis-route/plan-medical-academic-research-route)+3 Functional(func-ifind-stock-full-analysis/func-ifind-market-regime-check/func-academic-literature-review)+10 Atomic(atom-ifind-stock-kline/atom-ifind-stock-fundamental/atom-ifind-stock-summary/atom-ifind-stock-events/atom-ifind-index-sector/atom-ifind-news-notice/atom-ifind-fund-analysis/atom-ifind-macro-edb/atom-pubmed-medical-search/atom-semantic-scholar-paper-search)；共15条新增；来源：2026-09-12_iFinD_MCP与学术技能扩容；iFinD MCP按模块合并为8个原子补丁(stock 4+index/news 1+fund 1+macro 1)+2个学术技能原子补丁；3个functional覆盖股票全景分析+市场状态判断+学术文献综述；2个planning覆盖股票分析路由+学术/医学研究路由"
+    },
+    {
+      "date": "2026-09-12",
+      "action": "第十三轮补丁扩容（AgentKey MCP数据集成层）",
+      "details": "新增1 Planning(plan-data-acquisition-route)+2 Functional(func-agentkey-multi-source-research/func-agentkey-social-trend-tracking)+4 Atomic(atom-agentkey-web-search/atom-agentkey-social-media/atom-agentkey-crypto-data/atom-agentkey-finance-data)；共7条新增；来源：2026-09-12_AgentKey_MCP接入；domain=data-integration；AgentKey是跨领域统一数据网关MCP(50+数据源/2000+工具/按credits计费/自动故障转移)；原子层按大类合并为4个(搜索/社媒/加密/金融)；功能层覆盖多源交叉研究+社媒趋势追踪；规划层新增顶层数据获取路由决策树(含成本优先级原则+故障兜底)"
+    },
+    {
+      "date": "2026-09-13",
+      "distillation": "第12次双向蒸馏（v0.4叙事增强·第2次）",
+      "new_patches": [
+        "plan-boundary-calibration-principle",
+        "func-s1-lite-expand-to-scheduled-reports",
+        "atom-sdk-exception-bypass",
+        "atom-schedule-config-verify"
+      ],
+      "merge_check": "全部与现有patch语义相似度<0.8，无>0.9需合并项",
+      "filter_check": "4条全部通过5项质量标准检查"
+    },
+    {
+      "date": "2026-09-20",
+      "distillation": "第13次双向蒸馏（v0.4叙事增强·第3次）",
+      "new_patches": [
+        "plan-stabilize-before-expanding",
+        "func-optimization-uncovers-bugs",
+        "atom-ticket-executor-assumption",
+        "atom-cross-day-date-alignment"
+      ],
+      "merge_check": "4条新patch与现有112条语义相似度全部<0.8，无>0.9需合并项；plan-stabilize-before-expanding与plan-shadow-test-default同源（先稳再扩）但维度不同（一个是能力扩展节奏，一个是能力替换验证），互补不重复",
+      "filter_check": "4条全部通过5项质量标准检查"
+    },
+    {
+      "date": "2026-09-27",
+      "distill_cycle": "2026-09-20 ~ 2026-09-27",
+      "new_patches": [
+        "plan-consumer-driven-pipeline-health",
+        "func-rule-embedding-in-execution",
+        "atom-explanatory-output-verification",
+        "atom-config-expansion-fact-driven"
+      ],
+      "merge_result": "无>0.9需合并项。详细分析见 distill_report_20260927.md"
+    },
+    {
+      "date": "2026-10-11",
+      "distillation": "第16次双向蒸馏（v0.4叙事增强·第6次）",
+      "distill_cycle": "2026-10-04 ~ 2026-10-11",
+      "new_patches": [
+        "plan-global-inventory-first",
+        "func-lazy-init-fallback",
+        "func-restore-hierarchy-verify",
+        "atom-module-split-dependency-checklist",
+        "atom-unified-code-amplification"
+      ],
+      "merge_check": "5条新patch与现有124条逐一比对语义相似度，全部<0.85，无>0.9需合并项。关键近邻分析详见 distill_report_20261011.md",
+      "filter_check": "5条全部通过5项质量标准检查。详细评估见 distill_report_20261011.md",
+      "narrative_value": "叙事帮助发现6条memory_search找不到的深层模式：①架构升级'风控优先'惯性反复出现 ②代码拆分4例同一模式的依赖遗漏 ③'统一即放大'的架构规律 ④恢复有层级(L1/L2/L3) ⑤生产者视角vs消费者视角验证盲区 ⑥三阶段故障叠加(同症状不同根因)",
+      "tracking_improvement": "本周无topic_tracking相关叙事，无追踪策略改进建议",
+      "skill_decision_tree": "建议1条更新：将'验证深度'纳入变更管理patch（plan-change-impact-and-verify）的验证环节——从'有没有输出'升级为'输出对不对/全不全'，与func-restore-hierarchy-verify的三级恢复框架对齐。理由来自本周多次'验证了但没验全'的实例：10/9 fast模式验了但full模式没验、10/8 data_layer修了但没验full模式、S2探测规则统一后只验了自动补录有产出没验探测函数本身。"
+    }
+  ]
+}

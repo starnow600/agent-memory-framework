@@ -1,0 +1,217 @@
+{
+  "entries": [
+    {
+      "date": "2026-09-01",
+      "scene": "S2",
+      "subtask_name": "补跑完整风控",
+      "rules_checked": [],
+      "result": "pass",
+      "issue_desc": "主风控未触发补跑成功报告齐全",
+      "subtask_id": "7680493522809520411",
+      "timestamp": "2026-09-01T22:52:39",
+      "context": "补跑完整风控 (7680493522809520411)",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "subtask_checkin",
+      "delivery_name": "补跑完整风控",
+      "category": "investment"
+    },
+    {
+      "date": "2026-09-01",
+      "scene": "S2",
+      "subtask_name": "影子对比重算",
+      "rules_checked": [],
+      "result": "pass",
+      "issue_desc": "影子测试基准版未生成导致占位，删除后强制重算成功",
+      "subtask_id": "7680530079033606434",
+      "timestamp": "2026-09-01T22:52:55",
+      "context": "影子对比重算 (7680530079033606434)",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "subtask_checkin",
+      "delivery_name": "影子对比重算",
+      "category": "investment"
+    },
+    {
+      "date": "2026-09-01",
+      "scene": "S1",
+      "delivery_name": "9月1日风控报告交付",
+      "delivery_type": "report",
+      "scope": "delivery",
+      "rules_checked": [
+        "S001",
+        "S002"
+      ],
+      "result": "pass",
+      "issue_desc": "报告内容完整，对比报告基准缺失已补跑修复",
+      "timestamp": "2026-09-01T22:56:12",
+      "context": "report/9月1日风控报告交付",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "delivery_check",
+      "category": "report"
+    },
+    {
+      "date": "2026-09-03",
+      "scene": "S2",
+      "category": "风控脚本",
+      "subtask_name": "修复风控数据源三级兜底",
+      "rules_checked": [],
+      "result": "pass",
+      "issue_desc": "iFinD超限+腾讯挂掉的真实场景下冒烟验证通过，4只标的（含指数）全部成功",
+      "subtask_id": "",
+      "timestamp": "2026-09-03T19:23:31",
+      "context": "修复风控数据源三级兜底 ()",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "subtask_checkin",
+      "delivery_name": "修复风控数据源三级兜底"
+    },
+    {
+      "date": "2026-09-04",
+      "scene": "S2",
+      "category": "风控脚本",
+      "subtask_name": "风控akshare指数误判bug修复",
+      "rules_checked": [],
+      "result": "pass",
+      "issue_desc": "1. fetch_kline_akshare指数判断改为白名单制，覆盖14个核心指数；2. 深市000开头个股不再被误判为指数；3. 主脚本+专家版同步修复并冒烟验证通过；4. index.json版本号更新（v6.1.1/v2.0.3，冒烟10/10通过）",
+      "subtask_id": "",
+      "timestamp": "2026-09-04T19:20:00",
+      "context": "风控akshare指数误判bug修复 ()",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "subtask_checkin",
+      "delivery_name": "风控akshare指数误判bug修复"
+    },
+    {
+      "date": "2026-09-08",
+      "scene": "S2",
+      "subtask_name": "iFinD启动超时修复",
+      "rules_checked": [],
+      "result": "pass",
+      "issue_desc": "v6.1.1启动阶段iFinD token获取超时600s挂死，修复为10s健康检查+三级优先级调度，验证通过",
+      "subtask_id": "7683099699930349864",
+      "timestamp": "2026-09-08T23:27:35",
+      "context": "iFinD启动超时修复 (7683099699930349864)",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "subtask_checkin",
+      "delivery_name": "daily_risk_check.py v6.1.2",
+      "category": "investment"
+    },
+    {
+      "date": "2026-09-08",
+      "scene": "S2",
+      "subtask_name": "风控补跑-fast模式",
+      "rules_checked": [],
+      "result": "pass",
+      "issue_desc": "iFinD超限导致主脚本挂了，fast模式降级腾讯源补跑成功，报告完整",
+      "subtask_id": "6cbd96ca-2135-47cb-bddf-25d9f0cc75a6",
+      "timestamp": "2026-09-08T23:27:35",
+      "context": "风控补跑-fast模式 (日程补跑)",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "subtask_checkin",
+      "delivery_name": "daily_risk_fast_20260908.md",
+      "category": "investment"
+    },
+    {
+      "date": "2026-09-08",
+      "scene": "S1",
+      "delivery_name": "骨质疏松项目经费预算调整表",
+      "delivery_type": "docx",
+      "scope": "delivery",
+      "rules_checked": [
+        "S1-Lite"
+      ],
+      "result": "pass",
+      "issue_desc": "多次修改（清空多余行、移行对齐、调整理由简化），每次修改后S1-Lite反向验证数字和内容正确",
+      "timestamp": "2026-09-08T23:27:35",
+      "context": "docx/骨质疏松项目经费预算调整表",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "delivery_check",
+      "category": "document"
+    },
+    {
+      "date": "2026-09-08",
+      "scene": "S1",
+      "delivery_name": "9月8日风控fast报告",
+      "delivery_type": "report",
+      "scope": "delivery",
+      "rules_checked": [
+        "S001"
+      ],
+      "result": "pass",
+      "issue_desc": "两只持仓止损数据准确，总资产/浮亏/仓位计算无误，数据源标注明确（腾讯源降级）",
+      "timestamp": "2026-09-08T23:27:35",
+      "context": "report/9月8日风控fast报告",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "delivery_check",
+      "category": "investment"
+    },
+    {
+      "date": "2026-09-08",
+      "scene": "S1",
+      "delivery_name": "9月8日风控专家版报告",
+      "delivery_type": "report",
+      "scope": "delivery",
+      "rules_checked": [
+        "S001"
+      ],
+      "result": "pass",
+      "issue_desc": "双橙色警戒+深度分析完成，M1-M6六模块齐全，数据源降级说明明确",
+      "timestamp": "2026-09-08T23:27:35",
+      "context": "report/9月8日风控专家版报告",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "delivery_check",
+      "category": "investment"
+    },
+    {
+      "date": "2026-09-08",
+      "scene": "S1",
+      "delivery_name": "daily_risk_check.py v6.1.2",
+      "delivery_type": "code",
+      "scope": "delivery",
+      "rules_checked": [
+        "S1-Lite"
+      ],
+      "result": "pass",
+      "issue_desc": "启动超时控制+配额预警+错误码识别，三项修复验证通过，核心逻辑未动",
+      "timestamp": "2026-09-08T23:27:35",
+      "context": "code/daily_risk_check.py v6.1.2",
+      "found_issue": false,
+      "was_real_issue": false,
+      "time_spent_seconds": 0,
+      "check_type": "delivery_check",
+      "category": "code"
+    }
+  ],
+  "summary": {
+    "total_checks": 11,
+    "issues_found": 0,
+    "real_issues": 0,
+    "by_scene": {
+      "S1": 5,
+      "S2": 6
+    },
+    "by_date": {
+      "2026-09-01": 3,
+      "2026-09-03": 1,
+      "2026-09-04": 1,
+      "2026-09-08": 6
+    }
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "schema_version": "1.0",
+  "generated_date": "2026-10-01",
+  "description": "规则库索引——快速查找所有规则的id、类型、状态、分类，用于月度生长复盘扫描",
+  "stats": {
+    "total_rules": 32,
+    "prohibition_count": 18,
+    "strategy_count": 14,
+    "active_count": 21,
+    "experimental_count": 11,
+    "deprecated_count": 0,
+    "prohibition_strategy_ratio": "56.2:43.8"
+  },
+  "rules_index": [
+    {
+      "rule_id": "R001",
+      "type": "prohibition",
+      "status": "active",
+      "category": "投资风控",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R002",
+      "type": "prohibition",
+      "status": "active",
+      "category": "投资风控",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R003",
+      "type": "prohibition",
+      "status": "active",
+      "category": "投资风控",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R004",
+      "type": "prohibition",
+      "status": "active",
+      "category": "记忆系统",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R005",
+      "type": "prohibition",
+      "status": "active",
+      "category": "记忆系统",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R006",
+      "type": "prohibition",
+      "status": "active",
+      "category": "记忆系统",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R007",
+      "type": "prohibition",
+      "status": "active",
+      "category": "任务执行",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R008",
+      "type": "prohibition",
+      "status": "active",
+      "category": "任务执行",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R009",
+      "type": "prohibition",
+      "status": "active",
+      "category": "任务执行",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R010",
+      "type": "prohibition",
+      "status": "active",
+      "category": "任务执行",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R011",
+      "type": "prohibition",
+      "status": "active",
+      "category": "技能工具",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R012",
+      "type": "prohibition",
+      "status": "active",
+      "category": "投资风控",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R013",
+      "type": "prohibition",
+      "status": "active",
+      "category": "投资风控",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R014",
+      "type": "prohibition",
+      "status": "active",
+      "category": "投资风控",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R015",
+      "type": "prohibition",
+      "status": "active",
+      "category": "技能工具",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R016",
+      "type": "prohibition",
+      "status": "active",
+      "category": "记忆系统",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R017",
+      "type": "prohibition",
+      "status": "active",
+      "category": "沟通协作",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "R018",
+      "type": "prohibition",
+      "status": "active",
+      "category": "任务执行",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S001",
+      "type": "strategy",
+      "status": "active",
+      "category": "方法论",
+      "last_updated": "2026-10-01"
+    },
+    {
+      "rule_id": "S002",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "方法论",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S003",
+      "type": "strategy",
+      "status": "active",
+      "category": "任务执行",
+      "last_updated": "2026-10-01"
+    },
+    {
+      "rule_id": "S004",
+      "type": "strategy",
+      "status": "active",
+      "category": "记忆系统",
+      "last_updated": "2026-10-01"
+    },
+    {
+      "rule_id": "S005",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "工程架构",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S006",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "工程架构",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S007",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "分析决策",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S008",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "沟通协作",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S009",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "方法论",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S010",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "任务执行",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S011",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "任务执行",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S012",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "工程架构",
+      "last_updated": "2026-08-30"
+    },
+    {
+      "rule_id": "S014",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "工程架构",
+      "title": "三级兜底架构原则",
+      "last_updated": "2026-10-01"
+    },
+    {
+      "rule_id": "S015",
+      "type": "strategy",
+      "status": "experimental",
+      "category": "方法论",
+      "title": "职责边界校准原则",
+      "last_updated": "2026-10-01"
+    }
+  ]
+}

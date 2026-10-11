@@ -1,0 +1,543 @@
+{
+  "schema_version": "1.0",
+  "generated_date": "2026-10-01",
+  "description": "策略规则库 - 9月月度复盘更新（3转正+2新增experimental，共15条）",
+  "rules": [
+    {
+      "rule_id": "S001",
+      "type": "strategy",
+      "category": "方法论",
+      "trigger": "success_pattern",
+      "scope": "新系统/新模块/新能力替换旧系统时，尤其是核心功能（风控、记忆、检索等）的升级",
+      "rule_content": "新能力替换走影子测试模式：新系统与旧系统共享相同输入并行运行，只输出不展示，持续对比验证，通过验收标准后再逐步转正",
+      "rationale": "直接替换风险高，一旦新系统有问题会导致核心功能中断。影子模式在不影响现有流程的前提下验证新系统的一致性、完整性和准确性，验证充分后再切换",
+      "evidence": [
+        {
+          "event": "风控专家知识编码影子测试计划",
+          "date": "2026-08-30",
+          "summary": "专家知识编码版风控技能与现有脚本+LLM模式并行运行4周，每日自动diff对比，设4个Gate验收节点，通过后分三步转正",
+          "source": "decision/2026-08-30_risk_control_skill_encoding_test_plan.md"
+        },
+        {
+          "event": "PlugMem L0摘要预取改造",
+          "date": "2026-08-23",
+          "summary": "L0层改造后先跑Benchmark验证（Recall不下降+L0命中率显著提升双条件），确认效果后再正式上线，不影响L1/L2现有功能",
+          "source": "decision/2026-08-23_plugmem_l0_summary_prefetch.md"
+        },
+        {
+          "event": "数据源从腾讯API切换为iFinD",
+          "date": "2026-08-20",
+          "summary": "切换前做了7项验收标准验证（格式适配、算法不变、试跑通过等），试跑100只验证通过后再全量切换",
+          "source": "decision/2026-08-20_data_source_switch_and_batch_optimization.md"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.85,
+      "use_count": 6,
+      "success_count": 6,
+      "status": "active",
+      "checklist_item": "C-T006",
+      "last_promoted": "2026-10-01",
+      "promotion_evidence": "9月影子测试模式6次验证100%成功（专家版风控、MCP迁移、DAG化等），28天专家版影子测试完整闭环达标"
+    },
+    {
+      "rule_id": "S002",
+      "type": "strategy",
+      "category": "方法论",
+      "trigger": "success_pattern",
+      "scope": "复杂项目/大系统改造/多阶段工程，涉及多个阶段和验收节点",
+      "rule_content": "渐进式上线策略：分Phase推进 + 每阶段Gate验收 + 不达标不进入下一阶段 + 每个模块独立开关可一键回滚",
+      "rationale": "大项目一次性上线风险极高，分阶段推进可以在每一步验证效果、及时调整方向，独立开关保证出问题可快速回退，降低整体风险",
+      "evidence": [
+        {
+          "event": "PlugMem价值化升级（方案B→方案C）",
+          "date": "2026-08-26",
+          "summary": "分4个Phase渐进实施（Phase0基线→Phase1价值重排序→Phase2质量闭环→Phase3 C方案预评估），每阶段有独立验收节点，Phase3结束后设Go/No-Go决策门",
+          "source": "decision/2026-08-26_plugmem_value_upgrade.md"
+        },
+        {
+          "event": "风控技能专家知识编码",
+          "date": "2026-08-30",
+          "summary": "4周影子测试+3个Gate节点（Gate0编码完成/Gate1稳定性检查/Gate2中期评估/Gate3最终验收），通过后分三步转正而非直接替换",
+          "source": "decision/2026-08-30_risk_control_skill_encoding_test_plan.md"
+        },
+        {
+          "event": "PlugMem记忆架构改造",
+          "date": "2026-08",
+          "summary": "分三阶段：Phase1知识节点化+路由索引 → Phase2推理压缩层 → Phase3增量抽取+容量管理，每阶段有独立测试和验收报告",
+          "source": "memory-arch/README.md + phase1_report.md + phase2_report.md"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-T007"
+    },
+    {
+      "rule_id": "S003",
+      "type": "strategy",
+      "category": "任务执行",
+      "trigger": "success_pattern",
+      "scope": "所有CodeAct子session/通用子session派发的搭建型、开发型、生产型任务",
+      "rule_content": "子任务验收制：派发前明确产物清单+验收条件+失败处理，返回后主session逐条验证产物，不通过打回修复，通过才向用户报告",
+      "rationale": "子session结束不等于任务完成。有明确的验收标准可以减少半完成状态，保证交付质量",
+      "evidence": [
+        {
+          "event": "全市场v6.0扫描接入风控流水线",
+          "date": "2026-08-19",
+          "summary": "6项验收标准（脚本模块/扫描范围/三产物完整性/报告章节/index注册/试跑通过），子任务验收制首次实战6项全过",
+          "source": "decision/2026-08-19_full_market_scan_integration.md"
+        },
+        {
+          "event": "数据源切换+批量K线优化",
+          "date": "2026-08-20",
+          "summary": "决策一7项验收、决策二7项验收，全部通过后才标记完成，实际提速35倍",
+          "source": "decision/2026-08-20_data_source_switch_and_batch_optimization.md"
+        },
+        {
+          "event": "索引同步从子session迁移为CodeAct脚本",
+          "date": "2026-08-14",
+          "summary": "5项验证结果（40条旧索引迁入/幂等性测试/decay机制/首次试跑/日程切换），全部通过后才完成迁移",
+          "source": "decision/2026-08-14_index_sync_codeact_migration.md"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.8,
+      "use_count": 4,
+      "success_count": 4,
+      "status": "active",
+      "checklist_item": "C-T001",
+      "last_promoted": "2026-10-01",
+      "promotion_evidence": "9月子任务验收制4次验证全过，覆盖风控、记忆、索引等多个模块，无漏检"
+    },
+    {
+      "rule_id": "S004",
+      "type": "strategy",
+      "category": "记忆系统",
+      "trigger": "success_pattern",
+      "scope": "所有架构变更、规则修改、交易决策、大任务启动等重大决策",
+      "rule_content": "决策即记录：重大决策24小时内写入decision log，记录背景、选择方案、依据、替代方案、验证结果、影响范围，形成可追溯的决策链路",
+      "rationale": "决策过程是最有价值的经验资产，记录'为什么这么选'比记录'选了什么'更重要。完整的决策日志是复盘、学习、避免重复踩坑的基础",
+      "evidence": [
+        {
+          "event": "风控日程工作日修改决策",
+          "date": "2026-08-17",
+          "summary": "虽然只是配置调整，但因为涉及风控体系修改，判定为规则修改类重大决策，写decision log",
+          "source": "decision/2026-08-17_risk_schedule_weekday_fix.md"
+        },
+        {
+          "event": "紫光股份建仓预案决策",
+          "date": "2026-08-17",
+          "summary": "涉及新标的建仓+仓位规划+止损方案，判定为重大交易决策，预案阶段就写decision log",
+          "source": "decision/2026-08-17_ziguang_buy_plan.md"
+        },
+        {
+          "event": "索引同步mtime Bug修复",
+          "date": "2026-08-17",
+          "summary": "涉及记忆索引体系的核心可靠性修复，判定为架构变更类重大决策，写decision log并记录3条经验教训",
+          "source": "decision/2026-08-17_index_sync_mtime_fix.md"
+        },
+        {
+          "event": "小问题即改原则新增",
+          "date": "2026-08-23",
+          "summary": "规则修改类决策，完整记录背景、决策内容、依据、影响范围、关联条目",
+          "source": "decision/2026-08-23_small_issue_fix_immediately_rule.md"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.82,
+      "use_count": 5,
+      "success_count": 5,
+      "status": "active",
+      "checklist_item": "C-M001",
+      "last_promoted": "2026-10-01",
+      "promotion_evidence": "9月决策即记录5次触发全部建档（S2三问题修复、叙事Review恢复、专家版评估等）"
+    },
+    {
+      "rule_id": "S005",
+      "type": "strategy",
+      "category": "工程架构",
+      "trigger": "success_pattern",
+      "scope": "增量处理系统（索引同步、数据扫描、批量处理等）",
+      "rule_content": "增量为主+全量兜底：日常走增量模式提升效率，但必须具备全量重建能力作为兜底。增量出问题时可以随时回退到全量模式，避免遗漏累积",
+      "rationale": "增量系统依赖增量识别逻辑，一旦识别逻辑有bug（如mtime不可靠），会导致持续漏扫且不易发现。全量重建能力是最后的安全网，确保数据完整性可以恢复",
+      "evidence": [
+        {
+          "event": "索引同步增量+全量双模式",
+          "date": "2026-08-17",
+          "summary": "增量识别依赖文件名日期（mtime不可靠），新增--full参数支持全量重建。bug发现后通过全量回扫补回22条遗漏",
+          "source": "decision/2026-08-17_index_sync_mtime_fix.md"
+        },
+        {
+          "event": "风控扫描断点续扫机制",
+          "date": "2026-08-20",
+          "summary": "批量优化后虽然通常用不到，但断点续扫机制作为保底保留。增量提速的同时不丢失全量兜底能力",
+          "source": "decision/2026-08-20_data_source_switch_and_batch_optimization.md"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-U003"
+    },
+    {
+      "rule_id": "S006",
+      "type": "strategy",
+      "category": "工程架构",
+      "trigger": "success_pattern",
+      "scope": "定时触发的任务、可能重复执行的脚本、有并发风险的操作",
+      "rule_content": "幂等保护+双重保险：配置层面（日程单触发）+ 脚本层面（启动检查状态标记，已完成直接退出），即使配置重复触发也不会重复输出",
+      "rationale": "配置变更存在生效延迟和边界情况，单靠日程配置不能100%保证不重复。脚本层面增加幂等判断作为第二层防护，确保即使重复触发也安全",
+      "evidence": [
+        {
+          "event": "风控日程单触发+脚本幂等保护",
+          "date": "2026-08-21",
+          "summary": "日程从多轮接力改回单触发 + 脚本启动时检查当日done标记。双重保险机制，确保即使日程重复触发也不会重复输出",
+          "source": "decision/2026-08-21_risk_schedule_single_trigger_and_idempotent.md"
+        },
+        {
+          "event": "索引同步幂等性设计",
+          "date": "2026-08-14",
+          "summary": "索引同步脚本幂等性测试通过（连续运行无重复），同一源文件不会被重复抽取",
+          "source": "decision/2026-08-14_index_sync_codeact_migration.md"
+        },
+        {
+          "event": "增量知识节点抽取器幂等设计",
+          "date": "2026-08",
+          "summary": "incremental_extractor.py纯规则抽取，同一源文件不会被重复抽取，向后兼容只新增不修改",
+          "source": "memory-arch/README.md 增量知识节点抽取器"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-U004"
+    },
+    {
+      "rule_id": "S007",
+      "type": "strategy",
+      "category": "分析决策",
+      "trigger": "success_pattern",
+      "scope": "量化投资中的信号判断、入场决策、仓位分级",
+      "rule_content": "甜区验证法：信号评分/技术指标不是二元判断（有/无），而是分级验证——试探仓级别先轻仓验证，确认有效后再升级仓位，避免边缘信号重仓入场",
+      "rationale": "反转/追涨信号在不同评分区间的胜率差异很大，甜区（高分区间）胜率最高。用仓位分级对应评分分级，可以在低置信度时控制风险，高置信度时加大投入",
+      "evidence": [
+        {
+          "event": "紫光股份建仓：试探仓级11.6%仓位",
+          "date": "2026-08-17",
+          "summary": "v6.0追涨评分73.6分（强信号），但仍按试探仓纪律控制在≤15%，不一次性重仓",
+          "source": "decision/2026-08-17_ziguang_buy_plan.md"
+        },
+        {
+          "event": "v6.0反转甜区30-40分规则",
+          "date": "2026-08",
+          "summary": "反转模式评分有明确的甜区区间，30-40分胜率最高，过低（<20）和过高（>50）胜率反而下降",
+          "source": "decision/2026-08-30_metacognitive_rule_growth.md 第15条"
+        },
+        {
+          "event": "全市场扫描信号分级：试探仓/标准仓",
+          "date": "2026-08-19",
+          "summary": "信号分级：试探仓（45-54分）/标准仓（≥55分）/强信号（≥70分），不同级别对应不同操作策略",
+          "source": "decision/2026-08-19_full_market_scan_integration.md"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-I007"
+    },
+    {
+      "rule_id": "S008",
+      "type": "strategy",
+      "category": "沟通协作",
+      "trigger": "success_pattern",
+      "scope": "向用户交付报告、方案、分析等长内容时",
+      "rule_content": "结论先行+证据后补：先给核心结论和推荐方案，再展开论证过程和数据支撑。让用户第一时间知道答案，细节按需查看",
+      "rationale": "用户最关心的是结论和建议，不是推导过程。结论先行可以让用户快速判断是否需要深入了解，提高沟通效率",
+      "evidence": [
+        {
+          "event": "决策文档统一结构",
+          "date": "2026-08",
+          "summary": "所有decision log都采用'背景→决策内容→依据→影响范围'结构，决策内容放在前面，理由和证据放在后面",
+          "source": "decision/ 目录下15篇决策文档统一结构"
+        },
+        {
+          "event": "风控报告格式：Top-3风险预警+分析",
+          "date": "2026-08",
+          "summary": "风控报告先输出最关键的Top-3风险预警，再展开持仓变化分析和详细数据",
+          "source": "kn_011 风控报告交付标准"
+        },
+        {
+          "event": "PlugMem价值化升级：先结论后展开",
+          "date": "2026-08-26",
+          "summary": "决策记录先给结论（采纳方案B、分4Phase、Phase0已完成），再讲理由、实施路径、基线数据",
+          "source": "decision/2026-08-26_plugmem_value_upgrade.md"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-D002"
+    },
+    {
+      "rule_id": "S009",
+      "type": "strategy",
+      "category": "方法论",
+      "trigger": "user_feedback",
+      "scope": "所有涉及事实判断、数据结论、方案选型、行业实践、系统状态判断的输出场景，尤其是回答'怎么做''为什么''是不是'类问题时",
+      "rule_content": "先验后断原则：涉及事实判断、数据结论、方案选型时，必须先查证（搜索/读文件/用工具验证）再下结论，禁止凭模型推理直接给确定性答案。查证过程和来源需可见。",
+      "rationale": "模型有'快答冲动'——遇到问题先用逻辑拼出看似合理的答案，本质是用推理替代事实验证。拍脑袋不是知识问题是流程问题：先验证再开口，把'查证→判断→输出'固化为默认顺序，而不是'输出→被指出→再验证'的事后补救",
+      "evidence": [
+        {
+          "event": "6/17方法论拍脑袋事件+三层防线机制",
+          "date": "2026-06-17",
+          "summary": "用户问'怎么才能解决你拍脑袋的问题'，当天连续3次未搜就答方法论问题（抄底三条检查/持仓管理冻结期/趋势判断MA10>MA20），全部是直觉推理无依据。当天新增三层防线：输出标注强制规则/强制搜索触发词/自检钩子",
+          "source": "对话记录 2026-06-17"
+        },
+        {
+          "event": "7/11先验证再开口写入SOUL.md",
+          "date": "2026-07-11",
+          "summary": "用户说'我反复强调的，你总是拍脑袋，但不验证'。当天连续犯3次：建议建边际价值审计（没查月度自检是否已覆盖）、说P0改进项没修（没翻文件确认）、Wiki编译漏文件（假设输入源够了）。写入SOUL.md行为锚点：任何关于系统状态/任务完成度/改进项闭环的判断，必须先读文件/查索引确认",
+          "source": "对话记录 2026-07-11; SOUL.md 行为锚点"
+        },
+        {
+          "event": "8/30用户明确指出规则遗漏",
+          "date": "2026-08-30",
+          "summary": "初筛报告发布后，用户指出'我还经常让你不要拍脑袋，要找证据，要去搜索别人的经验，这个没看到有相关的提炼'。确认这是条高频且明确的规则，证据链含7/11验证过程可见、8/12'你倒是算一下啊'、8/30'全网看下别人是怎么做的'等多次反馈",
+          "source": "对话记录 2026-08-30 21:49"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-D003"
+    },
+    {
+      "rule_id": "S010",
+      "type": "strategy",
+      "category": "任务执行",
+      "trigger": "user_feedback",
+      "scope": "所有包含数据/数字的交付物（报告、分析、方案、日报、风控输出），尤其是涉及金额、比例、评分、统计结果等核心指标",
+      "rule_content": "交付数据自证原则：交付含数据的产物前，必须对核心数字做自证校验——从原始数据源反向核对关键指标（至少抽3个核心数字），确认与源数据一致后再交付。发现不一致时先修正再交付。",
+      "rationale": "数据错误会沿链路放大（报告→Wiki→记忆→后续决策），一个错数可能污染整个知识链。交付前自证是防止数据错误流出的最后一道闸门，比事后修复成本低得多",
+      "evidence": [
+        {
+          "event": "7/17规避损失累加口径错误",
+          "date": "2026-07-17",
+          "summary": "用户指出'你之前的每日报告都是错的'。规避损失用逐日累加口径，报告值60138元是正确值14583元的4.12倍。错误影响8份日报+Wiki+MEMORY+脚本，全链路修复。根因是把时点数当成了流量数",
+          "source": "对话记录 2026-07-17; R011禁令型规则"
+        },
+        {
+          "event": "8/26风控报告核心数据错误",
+          "date": "2026-08-26",
+          "summary": "用户指出'报告里的数据全错了'。核心数据来自放水的验收脚本，评测脚本算错了Top-1命中率（53.3% vs 实际76.7%）。需重写核心数据部分",
+          "source": "对话记录 2026-08-26 02:22"
+        },
+        {
+          "event": "6/4收盘价全部错误事件",
+          "date": "2026-06-04",
+          "summary": "用户指出'突然发现昨日收盘价都是错的'。复盘发现前一天数据正确，当天画蛇添足换了错误数据源反而改错了。教训：数据正确时不要乱动，改动后必须验证",
+          "source": "对话记录 2026-06-04"
+        }
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-D004"
+    },
+    {
+      "rule_id": "S011",
+      "type": "strategy",
+      "category": "任务执行",
+      "trigger": "reverse_derivation",
+      "scope": "所有问题/需求/任务的响应处理，包括bug修复、需求实现、方案设计等",
+      "rule_content": "问题分级响应策略：按修复时间和风险等级将问题分为三级，分级响应——①小问题级（≤5分钟、低风险、自治范围）→ 立即处理不拖延；②中等问题（5-30分钟、中等风险）→ 先给方案再执行；③大问题/高风险（≥30分钟或不可逆操作）→ 先给决策树+方案对比，用户确认后再动手",
+      "rationale": "所有问题用同一套响应流程是低效的——小问题拖延攒成技术债，大问题贸然开干方向错了代价高。分级响应让不同量级的问题匹配不同的前置确认成本，既防拖延又防冒进",
+      "evidence": [
+        {
+          "event": "8/23小问题即改规则新增（🔒级）",
+          "date": "2026-08-23",
+          "summary": "用户纠正'路线粘连bug等下次修'的拖延习惯，指出攒着下次修会累积成技术债。新增🔒级规则：低风险≤5分钟可完的小问题立即处理，不得拖延。对应禁令R010",
+          "source": "decision/2026-08-23_small_issue_fix_immediately_rule.md"
+        },
+        {
+          "event": "8/19全市场扫描方案A vs方案B确认",
+          "date": "2026-08-19",
+          "summary": "全市场v6.0扫描接入风控流水线，先给出方案A（直接接入）vs方案B（加索引层）的对比分析，用户选定方案B后才执行。对应禁令R009（大任务执行前确认）",
+          "source": "decision/2026-08-19_full_market_scan_integration.md"
+        },
+        {
+          "event": "6/9用户要求复杂任务先拆分确认",
+          "date": "2026-06-09",
+          "summary": "用户明确说'以后遇到复杂任务，你可以先拆分任务，等我确认后再执行'。这是对大任务响应方式的明确指导，构成问题分级中'大问题先确认'的直接依据",
+          "source": "对话记录 2026-06-09"
+        }
+      ],
+      "derived_from": [
+        "R009",
+        "R010"
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-T008"
+    },
+    {
+      "rule_id": "S012",
+      "type": "strategy",
+      "category": "工程架构",
+      "trigger": "reverse_derivation",
+      "scope": "系统异常、工具失败、任务出错、环境问题、功能异常等所有故障排查场景",
+      "rule_content": "故障归因分层排查法：故障排查按四层顺序逐层排除，每层有明确验证方法，不跳层——①自身逻辑层（代码bug/配置错误/逻辑漏洞）→ ②数据层（输入数据/依赖文件/数据口径）→ ③接口层（工具返回/API状态/第三方服务）→ ④平台层（系统环境/平台调度/基础设施）。确认上层无问题后才进入下一层",
+      "rationale": "人的直觉倾向于把问题推给外部（平台bug/系统故障），但大量'看似系统问题'实际是自身逻辑或数据问题。分层排查强迫从自身开始逐层验证，避免误判归因，也减少对平台方的误报",
+      "evidence": [
+        {
+          "event": "8/17索引同步mtime增量失效",
+          "date": "2026-08-17",
+          "summary": "索引同步新增0条但实际有新文件。初判可能是平台问题，实际排查发现是自身增量识别逻辑依赖mtime（云盘mtime全为1970），属于自身逻辑层问题。修复后全量回扫补回22条遗漏。对应禁令R018",
+          "source": "decision/2026-08-17_index_sync_mtime_fix.md"
+        },
+        {
+          "event": "7/22间歇性系统失败归因错误",
+          "date": "2026-07-22",
+          "summary": "7/19定时任务未触发，初判可能是Coze 3.0升级导致的平台故障，经过4层假设逐一排查（上下文爆炸→调度器→平台级→并发竞争），最终7/20确认是平台侧调度器间歇性问题，7/22官方修复后流水线恢复。错误归因持续了2天",
+          "source": "对话记录 2026-07-19~22; R018禁令型规则"
+        },
+        {
+          "event": "7/17规避损失累加错误排查",
+          "date": "2026-07-17",
+          "summary": "规避损失数据异常，先查自身脚本计算逻辑（累加口径错误），确认是数据层/逻辑层问题，不是平台问题。正确值=point-in-time非累加。对应禁令R011",
+          "source": "对话记录 2026-07-17; R011禁令型规则"
+        }
+      ],
+      "derived_from": [
+        "R018"
+      ],
+      "added_date": "2026-08-30",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-T009"
+    },
+    {
+      "rule_id": "S013",
+      "type": "strategy",
+      "category": "任务执行",
+      "trigger": "incident_fix",
+      "scope": "日程触发的所有报告/简报/分析交付（风控日报、专家报告、自检汇总等），由主agent收到notify后转发给用户前",
+      "rule_content": "日程产物交付必做S1-Lite反向验证：主agent收到日程脚本的notify/display_only结果后，转发给用户前必须做3项快速校验——①文件存在性（产物路径真实可读）②数据合理性（核心数字量级与前一日对比无突变）③格式完整性（关键章节无缺失）。校验不通过先修复/补数据再交付，通过才转发给用户。",
+      "rationale": "日程触发的产物容易因脚本异常、数据缺失、超时中断等原因产出不完整或错误的结果，如果主agent直接原样转发，会把有问题的产物交给用户。S1-Lite是30秒以内的轻量校验，成本极低但能挡住大部分低级问题。",
+      "evidence": [
+        {
+          "event": "9/11风控专家版对比报告为占位版",
+          "date": "2026-09-11",
+          "summary": "主风控full模式超时未生成基准数据，专家版diff报告为占位版。主agent收到notify后直接转发给用户，未发现对比报告无实际内容的问题。",
+          "source": "9/11每日自检汇总 S2-partial"
+        },
+        {
+          "event": "S1-Lite规则落地",
+          "date": "2026-09-08",
+          "summary": "S1分两档（Lite+Full），所有修改类交付必做S1-Lite反向验证≤30秒。但当时只覆盖了主动交付，未覆盖日程触发的被动转发场景。",
+          "source": "decision/2026-09-08_s1_lite_delivery_rule.md"
+        }
+      ],
+      "added_date": "2026-09-11",
+      "quality_score": 0.5,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "active",
+      "checklist_item": "C-T010"
+    },
+    {
+      "rule_id": "S014",
+      "type": "strategy",
+      "category": "工程架构",
+      "trigger": "success_pattern",
+      "scope": "所有外部依赖链路（数据源、API、工具、平台服务），尤其是核心功能（风控、记忆、检索）的依赖",
+      "rule_content": "核心依赖链路必须配置至少三级冗余：主路径→快速降级路径→手动兜底路径。上层失败自动切下层，任何一层不可用都不影响主流程输出。",
+      "rationale": "单路径依赖脆弱性极高，一旦上游故障整条链路中断。三级冗余通过不同技术路径的独立部署，确保核心功能在任一层故障时仍有降级输出，避免完全停摆。",
+      "evidence": [
+        {
+          "event": "风控数据源三级兜底（iFinD→腾讯→akshare）",
+          "date": "2026-09-03",
+          "summary": "iFinD配额超限+腾讯接口异常双重故障时，第三级akshare成功兜底，主流程未中断",
+          "source": "decision/2026-09-08_data_source_three_level_fallback.md"
+        },
+        {
+          "event": "S1/S2三层兜底架构",
+          "date": "2026-09-19",
+          "summary": "主动调用→自动补录→周校准对账，S2加固后日检完整度从50%提升至100%",
+          "source": "decision/2026-09-19_s2_architecture_hardening.md"
+        },
+        {
+          "event": "iFinD MCP连续6天空数据",
+          "date": "2026-09-30",
+          "summary": "iFinD MCP接口兼容问题导致连续6个交易日返回空，腾讯/akshare兜底全程扛住，风控主流程零中断",
+          "source": "decision/2026-09-30_expert_shadow_final_evaluation.md"
+        }
+      ],
+      "added_date": "2026-10-01",
+      "quality_score": 0.75,
+      "use_count": 3,
+      "success_count": 3,
+      "status": "experimental",
+      "checklist_item": "C-U005",
+      "first_observed": "2026-09-08",
+      "validation_period": "9月"
+    },
+    {
+      "rule_id": "S015",
+      "type": "strategy",
+      "category": "方法论",
+      "trigger": "incident_fix",
+      "scope": "投资决策、规则修改、任务优先级等所有需要用户拍板的场景",
+      "rule_content": "明确区分\"我的职责\"和\"用户的决策权\"——我负责监控、提醒、分析支撑、风险揭示，不评价用户决策，不将用户决策结果纳入自我评分。用户拥有完全的最终决策权。",
+      "rationale": "越界自我评价会导致两个问题：①把用户的自主决策归为自己的失职，造成不必要的自我否定；②模糊了责任边界，可能导致过度干预或推卸责任。清晰的职责边界让双方都能在各自的位置上高效运转。",
+      "evidence": [
+        {
+          "event": "9/10职责边界校准",
+          "date": "2026-09-10",
+          "summary": "将\"止损未执行导致亏损\"从\"我的失职\"修正为\"用户决策范畴\"，系统性修正所有自评体系",
+          "source": "decision/2026-09-10_duty_boundary_calibration.md"
+        },
+        {
+          "event": "SOUL.md绝对不做第2条",
+          "date": "2026-04-12",
+          "summary": "绝不因亏损归因用户或评价用户决策——从初始化就确立的红线",
+          "source": "基础设定/SOUL.md"
+        },
+        {
+          "event": "MEMORY.md职责边界规则",
+          "date": "2026-09-10",
+          "summary": "投资决策权完全在用户，我只负责监控、提醒、分析支撑，不评价用户决策，不将用户决策纳入自我评分",
+          "source": "MEMORY.md"
+        }
+      ],
+      "added_date": "2026-10-01",
+      "quality_score": 0.8,
+      "use_count": 0,
+      "success_count": 0,
+      "status": "experimental",
+      "checklist_item": "C-D005",
+      "first_observed": "2026-09-10",
+      "validation_period": "9月复盘新纳入"
+    }
+  ]
+}
